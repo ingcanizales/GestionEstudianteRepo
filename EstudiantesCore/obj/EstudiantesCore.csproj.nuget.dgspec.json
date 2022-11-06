@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Usuario\\Desktop\\GestionEstudiantes-feature2.0\\EstudiantesCore\\EstudiantesCore.csproj": {}
+    "C:\\Users\\Usuario\\Desktop\\GestionEstudiantes-feature2.0\\GestionEstudianteRepo\\EstudiantesCore\\EstudiantesCore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Usuario\\Desktop\\GestionEstudiantes-feature2.0\\EstudiantesCore\\EstudiantesCore.csproj": {
+    "C:\\Users\\Usuario\\Desktop\\GestionEstudiantes-feature2.0\\GestionEstudianteRepo\\EstudiantesCore\\EstudiantesCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\GestionEstudiantes-feature2.0\\EstudiantesCore\\EstudiantesCore.csproj",
+        "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\GestionEstudiantes-feature2.0\\GestionEstudianteRepo\\EstudiantesCore\\EstudiantesCore.csproj",
         "projectName": "EstudiantesCore",
-        "projectPath": "C:\\Users\\Usuario\\Desktop\\GestionEstudiantes-feature2.0\\EstudiantesCore\\EstudiantesCore.csproj",
+        "projectPath": "C:\\Users\\Usuario\\Desktop\\GestionEstudiantes-feature2.0\\GestionEstudianteRepo\\EstudiantesCore\\EstudiantesCore.csproj",
         "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Usuario\\Desktop\\GestionEstudiantes-feature2.0\\EstudiantesCore\\obj\\",
+        "outputPath": "C:\\Users\\Usuario\\Desktop\\GestionEstudiantes-feature2.0\\GestionEstudianteRepo\\EstudiantesCore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\Offline Packages"

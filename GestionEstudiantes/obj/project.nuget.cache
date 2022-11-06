@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3tVhXXyVjxShpM9wOunX7lA8pJN8HUC3qPUlOc1enX+gneE3kyw5fFgkuq1W7bOO9ULEBLb1kioiOredZne4ig==",
+  "dgSpecHash": "VO2eNezCquzBRtXR720WnrXVcxN3cERHuMK8p8u/z0Ly6UynLHL3clOtYp01TxSPH9AKw6oOMC77F75m+zhhzA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Usuario\\Desktop\\GestionEstudiantes-feature2.0\\GestionEstudiantes\\GestionEstudiantes.csproj",
+  "projectFilePath": "C:\\Users\\Usuario\\Desktop\\GestionEstudiantes-feature2.0\\GestionEstudianteRepo\\GestionEstudiantes\\GestionEstudiantes.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Usuario\\.nuget\\packages\\devextreme.aspnet.core\\22.1.3\\devextreme.aspnet.core.22.1.3.nupkg.sha512",
     "C:\\Users\\Usuario\\.nuget\\packages\\devextreme.aspnet.data\\2.8.6\\devextreme.aspnet.data.2.8.6.nupkg.sha512",

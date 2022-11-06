@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ID5v4SRqsvPePCMPeSlKNCht9LSa+5GuyCdFVQofohTHzm9lkEfYhgJBy3kUppvCuDICFRG8odmd1fc1Ox3kVA==",
+  "dgSpecHash": "0RzgSXKi/F3LEdBeduOVRJ6kY9LmUsnkpKkiKnxm6TpM651IByYqZb57TiT3gka86nxzsc2TgASuEXfqnoM/hA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Usuario\\Desktop\\GestionEstudiantes-feature2.0\\EstudiantesInfraestruture\\EstudiantesInfraestruture.csproj",
+  "projectFilePath": "C:\\Users\\Usuario\\Desktop\\GestionEstudiantes-feature2.0\\GestionEstudianteRepo\\EstudiantesInfraestruture\\EstudiantesInfraestruture.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Usuario\\.nuget\\packages\\microsoft.entityframeworkcore\\2.1.14\\microsoft.entityframeworkcore.2.1.14.nupkg.sha512",
     "C:\\Users\\Usuario\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\2.1.14\\microsoft.entityframeworkcore.abstractions.2.1.14.nupkg.sha512",
