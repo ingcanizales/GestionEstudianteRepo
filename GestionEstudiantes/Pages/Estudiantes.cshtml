@@ -1,0 +1,125 @@
+﻿@page
+@model GestionEstudiantes.Pages.EstudiantesModel
+@using EstudiantesCore.Dtos
+@using EstudiantesCore.Entidades
+@{ }
+
+@Html.AntiForgeryToken()
+@using DevExtreme.AspNet.Mvc
+
+<div class="divalumnos">
+
+    <div class="card">
+
+        <div class="card-body">
+
+            <div id="divgrid">
+
+                <h1>Estudiantes Matriculados</h1>
+
+                <div>
+                    @(Html.DevExtreme().Button().Text("Nuevo Estudiante").Type(ButtonType.Default).Icon("add").OnClick("EsconderGrid").Type(ButtonType.Default))
+                </div>
+
+
+                @(Html.DevExtreme().DataGrid<Estudiante>()
+    .ID("TableEstudiantes")
+    //.Editing(s=>s.AllowAdding(true).AllowUpdating(true).AllowDeleting(true).UseIcons(true).Mode(GridEditMode.Form))
+    .ShowRowLines(true)
+    .RemoteOperations(d => d.Paging(true).Filtering(true))
+    .Export(s => s.Enabled(true))
+    .RowAlternationEnabled(true)
+    .ShowBorders(true)
+    .ShowColumnLines(true)
+    .FilterRow(s => s.Visible(true))
+    .ShowRowLines(true)
+    .OnRowExpanding("Expading")
+    .AllowColumnReordering(true)
+    .AllowColumnResizing(true)
+    .ColumnAutoWidth(true)
+    .Paging(s => s.Enabled(true).PageSize(5))
+    .Pager(s => s.AllowedPageSizes(new List<int>
+    { 5, 10, 15 }).ShowNavigationButtons(true).ShowPageSizeSelector(true))
+    .SearchPanel(d => d.Visible(true))
+    .DataSource(s => s.RemoteController().LoadUrl("/Estudiantes?handler=AllEstudiante"))
+    .Columns(s=>
+    {
+        s.AddFor(q => q.TipoDocumento.Id).Caption("Tipo de documento").Lookup(q => q.DataSource(f => f.RemoteController().LoadUrl("/Estudiantes?handler=TipoDocumento").Key("Id")).ValueExpr("Id").DisplayExpr("Nombre"));
+        s.AddFor(q => q.Documento).Caption("Documento");
+        s.AddFor(q => q.Nombre).Caption("Nombres");
+        s.AddFor(q => q.Apellido).Caption("Apellidos");
+        s.AddFor(q => q.Estado.Id).Caption("Estado").Lookup(h => h.DataSource(f => f.RemoteController().LoadUrl("/Estudiantes?handler=EstadoEstudiante").Key("Id")).DisplayExpr("Nombre").ValueExpr("Id"));
+        s.Add().Visible(true)
+        .Type(GridCommandColumnType.Buttons)
+        .Width(110).Buttons(b =>
+        {
+
+            b.Add().Icon("edit").Hint("Editar").OnClick("EditarEstudianteFromGrid");
+            b.Add().Icon("info").Hint("Detalle").OnClick("VerEstudianteFromGrid");
+
+        });
+
+    }).MasterDetail(d => d.AutoExpandAll(false).Enabled(true).Template(new TemplateName("DetalleEstudiante")))
+    )
+
+
+            </div>
+
+            <div style="display:none" id="divformulario">
+                @(await Html.PartialAsync("/Pages/PartialViews/_formestudiante.cshtml"))
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+@using (Html.DevExtreme().NamedTemplate("DetalleEstudiante"))
+{@(Html.DevExtreme().TabPanel()
+        .SelectedIndex(0)
+        .ID("Tappanel")
+        .Loop(false)
+        .AnimationEnabled(true)
+        .SwipeEnabled(true)
+        .Items(item2 =>
+        {
+
+            item2.Add().Icon("add").Title("Materias").Template(@<text> @(await Html.PartialAsync("/Pages/PartialViews/_Materias.cshtml")) </text>);
+            //item2.Add().Icon("add").Title("Materias").Template(@<text> @(await Html.PartialAsync("/Pages/PartialViews/_MateriasActivas.cshtml")) </text>);
+            item2.Add().Icon("add").Title("Notas").Template(@<text> @(await Html.PartialAsync("/Pages/PartialViews/_notas.cshtml")) </text>);
+
+        })
+    )}
+
+
+
+@*@(Html.DevExtreme().Popup()
+            .ID("PopDetalleEstudiante")
+            .ShowTitle(true)
+            .Title("Datos del estudiante")
+            .Visible(false)
+            .DeferRendering(false)
+            .DragEnabled(true)
+            .Width(1200)
+            .Height(800)
+            .CloseOnOutsideClick(true)
+            .ContentTemplate(
+            @<text>
+                <div>
+                    @(await Html.PartialAsync("/Pages/PartialViews/_formestudiante.cshtml"))
+                </div>
+            </text>)
+)*@
+
+
+
+
+
+
+
+
+@section Scripts
+    {
+    <script src="~/js/Estudiantes.js"></script>
+}
