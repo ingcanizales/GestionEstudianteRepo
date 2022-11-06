@@ -20,6 +20,7 @@ namespace EstudiantesInfraestruture.Database
         public DbSet<Profesor> Profesor { get; set; }
         public DbSet<ProfesorXMaterias> ProfesorXMaterias { get; set; }
         public DbSet<TipoDocumento> TipoDocumento { get; set; }
+        public DbSet<Notas> Notas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

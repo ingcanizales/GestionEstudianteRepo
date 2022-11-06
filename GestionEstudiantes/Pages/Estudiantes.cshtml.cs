@@ -6,6 +6,7 @@ using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using EstudiantesCore.Dtos;
 using EstudiantesCore.Entidades;
+using EstudiantesCore.Enums;
 using EstudiantesCore.Interactores;
 using EstudiantesCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -209,6 +210,47 @@ namespace GestionEstudiantes.Pages
             }
 
         }
+
+        [HttpPost]
+        public IActionResult OnPostEliminarEstudiante(int idEstudiante)
+        {
+            try
+            {
+                if (idEstudiante > 0)
+                {
+                   
+                    _gestionEstudiante.EliminarEstudiante(idEstudiante);
+                }
+               
+
+                return StatusCode(200);
+
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        public IActionResult OnGetObtenerNotasById(DataSourceLoadOptions options, int idEstudiante)
+        {
+            try
+            {
+                List<Notas> materias = new List<Notas>();
+
+                if (idEstudiante != 0)
+                {
+                    materias = _gestionEstudiante.ObtenerNotasById(idEstudiante);
+                }
+
+                return new JsonResult(DataSourceLoader.Load(materias, options));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
     }
 }
 

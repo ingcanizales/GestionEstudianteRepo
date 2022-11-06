@@ -1,5 +1,7 @@
 ﻿using EstudiantesCore.Entidades;
+using EstudiantesCore.Enums;
 using EstudiantesCore.Interfaces;
+using EstudiantesCore.ViewModels;
 using EstudiantesInfraestruture.Context;
 using EstudiantesInfraestruture.Database;
 using Microsoft.EntityFrameworkCore;
@@ -174,5 +176,63 @@ namespace EstudiantesInfraestruture.Implementations
             return materias;
         }
 
+        public List<EstudiantesViewModels> ObtenerDetalle()
+
+        {
+            List<EstudiantesViewModels> listaPagos = new List<EstudiantesViewModels>();
+
+            var Datos = (from Estu in _dbContext.Estudiante
+                          join Esta in _dbContext.EstadoEstudiante
+                          on Estu.Estado.Id equals Esta.Id
+                          orderby Estu.Estado.Id
+                          select new EstudiantesViewModels
+                          {
+                              Nombre = Estu.Nombre,
+                              Apellido = Estu.Apellido,
+                              Documento = Estu.Documento,
+                              Codigo = Esta.Code,
+                              NombreEstado = Esta.Nombre,
+                              EstadoId = Esta.Id
+
+
+                          }).ToList();
+            return Datos;
+           
+        }
+
+        public void EliminarEstudiante(int idEstudiante)
+        {
+            //bool existeEstudiante = _dbContext.Estudiante.Any(s => s.Id == estudiante.Id);
+            Estudiante estudiante = new Estudiante();
+            estudiante = _dbContext.Estudiante.Find(idEstudiante);
+
+            if (estudiante != null)
+            {
+                List<MateriasXEstudiante> materiasxestudiantes = new List<MateriasXEstudiante>();
+                materiasxestudiantes = _dbContext.MateriasXEstudiante.Where(s => s.Id == idEstudiante).ToList();
+                foreach (var element in materiasxestudiantes)
+                {
+                    _dbContext.Attach(element);
+                    _dbContext.RemoveRange(element);
+                }
+                estudiante.Estado = this.GetEstadoByCodigo(EnumEstadoEstudiante.Cancelado);
+                _dbContext.Estudiante.Remove(estudiante);
+                _dbContext.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("Usuario no encontrado");
+            }
+        }
+
+        public List<Notas> ObtenerNotasById(int idEstudiante)
+        {
+            List<Notas> notas = new List<Notas>();
+
+            notas = _dbContext.Notas.Where(s => s.Estudiante.Id == idEstudiante)
+                .Include(s=>s.Materia)
+                .Include(s=>s.Estudiante).ToList();
+            return notas;
+        }
     }
 }

@@ -53,9 +53,10 @@
         .Type(GridCommandColumnType.Buttons)
         .Width(110).Buttons(b =>
         {
-
+            //Icons: DevExtreme - JavaScript UI Components for Angular ...
             b.Add().Icon("edit").Hint("Editar").OnClick("EditarEstudianteFromGrid");
             b.Add().Icon("info").Hint("Detalle").OnClick("VerEstudianteFromGrid");
+            b.Add().Icon("trash").Hint("Eliminar").OnClick("EliminarEstudiante");
 
         });
 

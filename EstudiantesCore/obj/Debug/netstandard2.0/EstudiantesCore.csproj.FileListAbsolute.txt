@@ -8,3 +8,13 @@ C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\EstudiantesCore\obj\Debug
 C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\EstudiantesCore\obj\Debug\netstandard2.0\EstudiantesCore.csproj.CoreCompileInputs.cache
 C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\EstudiantesCore\obj\Debug\netstandard2.0\EstudiantesCore.dll
 C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\EstudiantesCore\obj\Debug\netstandard2.0\EstudiantesCore.pdb
+C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\EstudiantesCore\bin\Debug\netstandard2.0\EstudiantesCore.deps.json
+C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\EstudiantesCore\bin\Debug\netstandard2.0\EstudiantesCore.dll
+C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\EstudiantesCore\bin\Debug\netstandard2.0\EstudiantesCore.pdb
+C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\EstudiantesCore\obj\Debug\netstandard2.0\EstudiantesCore.csproj.AssemblyReference.cache
+C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\EstudiantesCore\obj\Debug\netstandard2.0\EstudiantesCore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\EstudiantesCore\obj\Debug\netstandard2.0\EstudiantesCore.AssemblyInfoInputs.cache
+C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\EstudiantesCore\obj\Debug\netstandard2.0\EstudiantesCore.AssemblyInfo.cs
+C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\EstudiantesCore\obj\Debug\netstandard2.0\EstudiantesCore.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\EstudiantesCore\obj\Debug\netstandard2.0\EstudiantesCore.dll
+C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\EstudiantesCore\obj\Debug\netstandard2.0\EstudiantesCore.pdb

@@ -71,6 +71,7 @@ async function DocumentoUnico(e)
     }
 }
 
+//Valida la edad
 function VerificarMayorEdad(e)
 {
     var valido = true;
@@ -81,6 +82,7 @@ function VerificarMayorEdad(e)
     return valido;
 }
 
+//esconde la grilla
 function EsconderGrid() {
     $("#divgrid").hide();
     $("#divformulario").show();
@@ -98,6 +100,7 @@ function EsconderFormulario() {
     $("#TableEstudiantes").dxDataGrid("instance").refresh();
 }
 
+//para el método editar.
 async function EditarEstudianteFromGrid(e) {
 
     try {
@@ -146,6 +149,7 @@ async function VerEstudianteFromGrid(e) {
     isEdition = true;
 }
 
+//manda valores del TapPanel.
 function Expading(e) {
     //solo permite expandir una vez
     e.component.collapseAll(-1);
@@ -153,6 +157,7 @@ function Expading(e) {
     
 }
 
+//Manda los datos en OnBeforeSent
 function MandarDataEstudiante(action, info) {
     
    
@@ -166,4 +171,43 @@ function MandarDataEstudiante(action, info) {
 
 }
 
+async function EliminarEstudiante(e) {
 
+    try {
+        var idEstudiante = e.row.data.Id;
+        
+        var estudiante = await $.ajax({
+            method: "POST",
+            url: "/Estudiantes?handler=EliminarEstudiante",
+            data: { idEstudiante: idEstudiante }
+        });
+
+        if (estudiante == null) {
+            await Swal.fire(
+                'Atención',
+                'Estudiante no encontrado',
+                'info'
+            )
+
+            return;
+        }
+        else {
+            //$("#divgrid").hide();
+            //$("#divformulario").show();
+            $("#FormEstudiante").dxForm("instance").resetValues();
+            $("#FormEstudiante").dxForm("instance").option("formData", estudiante);
+            //$("#FormEstudiante").dxForm("instance").getEditor("TipoDocumento").option("readOnly", true);
+            //$("#FormEstudiante").dxForm("instance").getEditor("Documento").option("readOnly", true);
+            //isEdition = true;
+        }
+    }
+    catch (error) {
+        await Swal.fire(
+            'Atención',
+            'Ocurrió un error inesperado',
+            'error'
+        )
+    }
+
+
+}

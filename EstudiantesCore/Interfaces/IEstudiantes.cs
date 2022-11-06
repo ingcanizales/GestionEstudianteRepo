@@ -1,4 +1,5 @@
 ﻿using EstudiantesCore.Entidades;
+using EstudiantesCore.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -37,5 +38,11 @@ namespace EstudiantesCore.Interfaces
         List<EstadoMateria> GetEstadosMateria();
 
         List<MateriasXEstudiante> ObtenerMateriasEstudiante(int IdEstudiante);
+
+        List<EstudiantesViewModels> ObtenerDetalle();
+
+        void EliminarEstudiante(int idEstudiante);
+
+        List<Notas> ObtenerNotasById(int idEstudiante);
     }
 }

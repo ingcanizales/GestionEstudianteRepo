@@ -7,7 +7,7 @@
 });
 
 var isEdition = false;
-
+//Contiene la funcion AddRow que agrega una fila vacia y la coloca en estado de adición.
 function AddModeGrid() {
     isEdition = false;
     $("#TableMateria").dxDataGrid("instance").addRow();
@@ -33,12 +33,14 @@ async function CodigoUnico(e) {
     return valido;
 }
 
+//viene de OnEditingStart se ejecuta cuando se empieza la edición, antes que una fila cambie a modo de edición.
 function SetEditmode() {
     isEdition = true;
     $("#TableMateria").dxDataGrid("instance").columnOption("Code", "allowEditing", false);
     $("#TableMateria").dxDataGrid("instance").columnOption("Estado.Id", "allowEditing", true);
 }
 
+//Es para Mandar un dato por defecto a una columna cuando se esta agragando y asi no tener que irlo a buscar.
 function EditorPreparado(e) {
     if (e.dataField === "Estado.Id" && e.parentType === "dataRow") {
         if (!isEdition) {
