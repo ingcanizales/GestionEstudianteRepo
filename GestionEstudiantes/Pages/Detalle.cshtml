@@ -8,6 +8,40 @@
 @using EstudiantesCore.Entidades
 @using EstudiantesCore.ViewModels
 
+<h3>Búsqueda Estudiantes</h3>
+
+@Html.AntiForgeryToken()
+
+@using (Html.DevExtreme().ValidationGroup())
+{
+    var priorities = new[] { "Estado", "Fecha", "Materia", "Documento" };
+
+    @(Html.DevExtreme().Form<Estudiante>()
+                                    .ElementAttr("class", "marginBottom")
+                                    .ID("formConsultaEstudiantes")
+                                    .ColCount(12)
+                                    .Items(formItems =>
+                                    {
+                                        formItems.AddSimpleFor(m => m.TipoBusqueda).Name("TipoBusqueda").Label(l => { l.Text("Tipo de búsqueda"); l.Location(FormLabelLocation.Left); }).Editor(e => e.RadioGroup().OnValueChanged("function (e){ RadioValue(e); }").Items(priorities).Layout(Orientation.Horizontal).ID("prioridadId")).Label(l => l.Location(FormLabelLocation.Top)).ColSpan(4).IsRequired(true);
+
+                                        formItems.AddSimple().ColSpan(2).Visible(false).ValidationRules(s => s.AddRequired().Message("Campo requerido")).Name("FechaInicio").Label(l => { l.Text("Fecha Ingreso"); l.Location(FormLabelLocation.Top); }).Editor(e => e.DateBox().OnValueChanged("SetMinFechaHasta").ID("FechaInicio").Max(DateTime.Now).DateSerializationFormat("yyyy-MM-dd"));
+                                        formItems.AddSimple().ColSpan(2).Visible(false).ValidationRules(s => s.AddRequired().Message("Campo requerido")).Name("FechaFin").Label(l => { l.Text("Fecha Egreso"); l.Location(FormLabelLocation.Top); }).Editor(e => e.DateBox().OnValueChanged("SetMaxFechaDesde").ID("FechaFin").Max(DateTime.Now).DateSerializationFormat("yyyy-MM-dd"));
+
+                                        formItems.AddSimple().Visible(false).Name("Estado").Label(l => { l.Text("Estado").Location(FormLabelLocation.Top); }).Editor(e => e.SelectBox().SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).ID("Estado")
+                                        .DataSource(d => d.RemoteController().LoadUrl(Url.Page("Estudiantes", "EstadoEstudiante")).Key("Id")).DisplayExpr("Nombre")).IsRequired(true).ColSpan(4);
+
+                                        formItems.AddSimple().Visible(false).Name("Materia").Label(l => { l.Text("Materia").Location(FormLabelLocation.Top); }).Editor(e => e.SelectBox().SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).ID("Materia")
+                                        .DataSource(d => d.RemoteController().LoadUrl(Url.Page("Detalle", "ObtenerMaterias")).Key("Id")).DisplayExpr("Nombre")).IsRequired(true).ColSpan(4);
+
+                                        formItems.AddSimple().Visible(false).Name("Documento").Label(l => { l.Text("Documento").Location(FormLabelLocation.Top); }).Editor(e => e.TextBox()).ColSpan(4);
+
+                                        formItems.AddButton().HorizontalAlignment(HorizontalAlignment.Left).VerticalAlignment(VerticalAlignment.Bottom).ButtonOptions(s => s.UseSubmitBehavior(false).Type(ButtonType.Default).Icon("find").Text("Buscar").OnClick("ConsultarPretramites").ElementAttr("class", "buscar posicionEncima")).ColSpan(2);
+                                    })
+
+    )
+
+}
+
 
 <div class="divalumnos">
     <div class="card">
@@ -28,29 +62,57 @@
             .RowAlternationEnabled(true)
             .ShowBorders(true)
             .ShowColumnLines(true)
-            .FilterRow(s => s.Visible(true))
+            //.FilterRow(s => s.Visible(true))//filtro que aparece arriba en la grilla.
             .ShowRowLines(true)
+            .ShowBorders(true)
+            //.Pager(pager =>
+            //{
+            //    pager.ShowPageSizeSelector(true);
+            //    pager.ShowNavigationButtons(true);
+            //    pager.Visible(true);
+            //    pager.AllowedPageSizes(new List<int> { 5, 10, 15, 20 });
+            //    pager.ShowInfo(true);
+            //})
+            //.RemoteOperations(s => s.Paging(true).Filtering(true).Sorting(true))
+            .DataSourceOptions(p => p.Sort("FechaModifica", true))
+            .Paging(s => s.PageSize(15))
+            .ColumnChooser(s => s.Enabled(true).Mode(GridColumnChooserMode.Select).Title("Seleccione la columna a mostrar u ocultar"))
+            .AllowColumnResizing(true)
+            //.FilterRow(filterRow => filterRow
+            //.Visible(true)
+            //.ApplyFilter(GridApplyFilterMode.Auto).ShowOperationChooser(false)
+            //)
             .AllowColumnReordering(true)
             .AllowColumnResizing(true)
             .ColumnAutoWidth(true)
             .Paging(s => s.Enabled(true).PageSize(5))
             .SearchPanel(d => d.Visible(true))
-            .DataSource(s => s.RemoteController().LoadUrl("/Detalle?handler=ObtenerDatos"))
-            .Columns(s =>
-            {
+            .OnRowExpanding("ExpansionFila")
+            .DataSource(d => d.RemoteController()
+            /*.DataSource(s => s.RemoteController().LoadUrl("/Detalle?handler=ObtenerDatos"))*/
+            .LoadUrl(Url.Page("Detalle", "ObtenerDetalleByBusqueda")).OnBeforeSend("MandarParametrosBusqueda")
+             /*.Key("Id")*/)
+                .Columns(s =>
+                {
 
-                //s.AddFor(q => q.TipoDocumento.Id).Caption("Tipo documento").FormItem(f=>f.Editor(g=>g.SelectBox().ID("SelectTipoDocumento").DataSource(h=>h.RemoteController().LoadUrl("/Estudiantes?handler=TipoDocumento").Key("Id")).DisplayExpr("Nombre"))).Lookup(g => g.DataSource(f => f.RemoteController().LoadUrl("/Estudiantes?handler=TipoDocumento").Key("Id")).DisplayExpr("Nombre").ValueExpr("Id"));
-                s.AddFor(g => g.Documento).ValidationRules(f=>f.AddAsync()/*.ValidationCallback("IdentificacionUnica")*/.Message("Ya existe un profesor registrado con este documento").Reevaluate(true)) .ValidationRules(g => g.AddRequired().Message("El documento es requerido")).ValidationRules(g => g.AddStringLength().Min(3).Message("Mínimo 3 caracteres")).Caption("Documento").FormItem(k => k.Editor(l => l.TextBox().MaxLength(20)));
-                s.AddFor(q => q.Nombre).ValidationRules(g=>g.AddRequired().Message("El nombre es requerido")).Caption("Nombre");
-                s.AddFor(q => q.Apellido).ValidationRules(g => g.AddRequired().Message("El apellido es requerido")).Caption("Apellido");
-                s.AddFor(q => q.EstadoId).Caption("Estado").Lookup(h => h.DataSource(f => f.RemoteController().LoadUrl("/Detalle?handler=EstadoEstudiante").Key("Id")).DisplayExpr("Nombre").ValueExpr("Id"));
-                s.AddFor(q => q.Codigo).ValidationRules(g => g.AddRequired().Message("El apellido es requerido")).Caption("Codigo");
-            })
+                    s.AddFor(q => q.TipoDocumento.Id).Caption("Tipo documento").FormItem(f => f.Editor(g => g.SelectBox().ID("SelectTipoDocumento").DataSource(h => h.RemoteController().LoadUrl("/Estudiantes?handler=TipoDocumento").Key("Id")).DisplayExpr("Nombre"))).Lookup(g => g.DataSource(f => f.RemoteController().LoadUrl("/Estudiantes?handler=TipoDocumento").Key("Id")).DisplayExpr("Nombre").ValueExpr("Id"));
+                    s.AddFor(g => g.Documento).ValidationRules(f=>f.AddAsync()/*.ValidationCallback("IdentificacionUnica")*/.Message("Ya existe un profesor registrado con este documento").Reevaluate(true)) .ValidationRules(g => g.AddRequired().Message("El documento es requerido")).ValidationRules(g => g.AddStringLength().Min(3).Message("Mínimo 3 caracteres")).Caption("Documento").FormItem(k => k.Editor(l => l.TextBox().MaxLength(20)));
+                    s.AddFor(q => q.Nombre).ValidationRules(g=>g.AddRequired().Message("El nombre es requerido")).Caption("Nombre");
+                    s.AddFor(q => q.Apellido).ValidationRules(g => g.AddRequired().Message("El apellido es requerido")).Caption("Apellido");
+                    s.AddFor(q => q.EstadoId).Caption("Estado").Lookup(h => h.DataSource(f => f.RemoteController().LoadUrl("/Detalle?handler=EstadoEstudiante").Key("Id")).DisplayExpr("Nombre").ValueExpr("Id"));
+                    s.AddFor(q => q.Email).ValidationRules(g => g.AddRequired().Message("El Promedio es requerido")).Caption("Email");
+                })
 
-            )
+                )
 
 
             </div>
         </div>
     </div>
 </div>
+
+
+@section Scripts
+    {
+    <script src="~/js/DetalleEstudiante.js"></script>
+}

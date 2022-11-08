@@ -58,6 +58,7 @@ namespace EstudiantesCore.Entidades
         [Required]
         public EstadoEstudiante Estado { get; set; }
 
-
+        [NotMapped]
+        public string TipoBusqueda { get; set; }
     }
 }

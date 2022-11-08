@@ -36,9 +36,7 @@
           "Microsoft.AspNetCore.Razor.Design": "2.1.2",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.1.14",
           "Microsoft.EntityFrameworkCore.Tools": "2.1.14",
-          "Microsoft.NETCore.App": "2.1.0",
-          "NLog.Config": "4.5.11",
-          "NLog.Web.AspNetCore": "4.8.0"
+          "Microsoft.NETCore.App": "2.1.0"
         },
         "runtime": {
           "GestionEstudiantes.dll": {}
@@ -51,7 +49,7 @@
         "dependencies": {
           "DevExtreme.AspNet.Data": "2.8.6",
           "Microsoft.AspNetCore.Mvc": "2.1.1",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "12.0.3"
         },
         "runtime": {
           "lib/netstandard2.0/DevExtreme.AspNet.Core.dll": {
@@ -66,7 +64,7 @@
       "DevExtreme.AspNet.Data/2.8.6": {
         "dependencies": {
           "Microsoft.CSharp": "4.5.0",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "12.0.3"
         },
         "runtime": {
           "lib/netstandard2.0/DevExtreme.AspNet.Data.dll": {
@@ -163,54 +161,40 @@
           "Microsoft.EntityFrameworkCore.Design": "2.1.14"
         }
       },
-      "NLog/4.5.11": {
+      "Newtonsoft.Json/12.0.3": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.3.23909"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Newtonsoft.Json.Schema/3.0.14": {
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.Schema.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.14.25421"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.Schema.dll": {}
+        }
+      },
+      "NLog/5.0.5": {
         "runtime": {
           "lib/netstandard2.0/NLog.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.5.11.8645"
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.5.1426"
           }
         },
         "compile": {
           "lib/netstandard2.0/NLog.dll": {}
-        }
-      },
-      "NLog.Config/4.5.11": {
-        "dependencies": {
-          "NLog": "4.5.11",
-          "NLog.Schema": "4.5.11"
-        }
-      },
-      "NLog.Extensions.Logging/1.4.0": {
-        "dependencies": {
-          "Microsoft.Extensions.Logging": "2.1.1",
-          "NLog": "4.5.11"
-        },
-        "runtime": {
-          "lib/netstandard2.0/NLog.Extensions.Logging.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.4.0.867"
-          }
-        },
-        "compile": {
-          "lib/netstandard2.0/NLog.Extensions.Logging.dll": {}
-        }
-      },
-      "NLog.Schema/4.5.11": {},
-      "NLog.Web.AspNetCore/4.8.0": {
-        "dependencies": {
-          "Microsoft.AspNetCore.Hosting.Abstractions": "2.1.1",
-          "Microsoft.AspNetCore.Http": "2.1.1",
-          "Microsoft.AspNetCore.Routing.Abstractions": "2.1.1",
-          "NLog.Extensions.Logging": "1.4.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/NLog.Web.AspNetCore.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.8.982.0"
-          }
-        },
-        "compile": {
-          "lib/netstandard2.0/NLog.Web.AspNetCore.dll": {}
         }
       },
       "Remotion.Linq/2.2.0": {
@@ -278,6 +262,9 @@
       },
       "EstudiantesCore/1.0.0": {
         "dependencies": {
+          "DevExtreme.AspNet.Data": "2.8.6",
+          "NLog": "5.0.5",
+          "Newtonsoft.Json.Schema": "3.0.14",
           "System.ComponentModel.Annotations": "5.0.0"
         },
         "runtime": {
@@ -289,6 +276,7 @@
       },
       "EstudiantesInfraestruture/1.0.0": {
         "dependencies": {
+          "DevExtreme.AspNet.Data": "2.8.6",
           "EstudiantesCore": "1.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.1.14"
         },
@@ -301,7 +289,7 @@
       },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
         "dependencies": {
-          "Newtonsoft.Json": "11.0.2",
+          "Newtonsoft.Json": "12.0.3",
           "Newtonsoft.Json.Bson": "1.0.1"
         },
         "compile": {
@@ -581,7 +569,7 @@
       "Microsoft.AspNetCore.Authentication.OAuth/2.1.1": {
         "dependencies": {
           "Microsoft.AspNetCore.Authentication": "2.1.1",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "12.0.3"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.OAuth.dll": {}
@@ -847,7 +835,7 @@
           "Microsoft.AspNetCore.Http.Connections.Common": "1.0.1",
           "Microsoft.AspNetCore.Routing": "2.1.1",
           "Microsoft.AspNetCore.WebSockets": "2.1.1",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "12.0.3"
         },
         "compile": {
           "lib/netcoreapp2.1/Microsoft.AspNetCore.Http.Connections.dll": {}
@@ -857,7 +845,7 @@
       "Microsoft.AspNetCore.Http.Connections.Common/1.0.1": {
         "dependencies": {
           "Microsoft.AspNetCore.Connections.Abstractions": "2.1.1",
-          "Newtonsoft.Json": "11.0.2",
+          "Newtonsoft.Json": "12.0.3",
           "System.Buffers": "4.5.0"
         },
         "compile": {
@@ -950,7 +938,7 @@
       "Microsoft.AspNetCore.JsonPatch/2.1.1": {
         "dependencies": {
           "Microsoft.CSharp": "4.5.0",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "12.0.3"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.AspNetCore.JsonPatch.dll": {}
@@ -1181,7 +1169,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.Hosting.Abstractions": "2.1.1",
           "Microsoft.Extensions.Logging.Console": "2.1.1",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "12.0.3"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.AspNetCore.NodeServices.dll": {}
@@ -1413,7 +1401,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.Connections.Abstractions": "2.1.1",
           "Microsoft.Extensions.Options": "2.1.1",
-          "Newtonsoft.Json": "11.0.2",
+          "Newtonsoft.Json": "12.0.3",
           "System.Buffers": "4.5.0"
         },
         "compile": {
@@ -1439,7 +1427,7 @@
       "Microsoft.AspNetCore.SignalR.Protocols.Json/1.0.1": {
         "dependencies": {
           "Microsoft.AspNetCore.SignalR.Common": "1.0.1",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "12.0.3"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Protocols.Json.dll": {}
@@ -1701,7 +1689,7 @@
         "dependencies": {
           "Microsoft.Extensions.Configuration": "2.1.1",
           "Microsoft.Extensions.Configuration.FileExtensions": "2.1.1",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "12.0.3"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.Extensions.Configuration.Json.dll": {}
@@ -1756,7 +1744,7 @@
       "Microsoft.Extensions.DependencyModel/2.1.0": {
         "dependencies": {
           "Microsoft.DotNet.PlatformAbstractions": "2.1.0",
-          "Newtonsoft.Json": "11.0.2",
+          "Newtonsoft.Json": "12.0.3",
           "System.Diagnostics.Debug": "4.3.0",
           "System.Dynamic.Runtime": "4.3.0",
           "System.Linq": "4.3.0"
@@ -1946,7 +1934,7 @@
       "Microsoft.Extensions.Logging.EventSource/2.1.1": {
         "dependencies": {
           "Microsoft.Extensions.Logging": "2.1.1",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "12.0.3"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.Extensions.Logging.EventSource.dll": {}
@@ -2042,7 +2030,7 @@
         "dependencies": {
           "Microsoft.IdentityModel.Protocols": "5.2.0",
           "NETStandard.Library": "2.0.3",
-          "Newtonsoft.Json": "11.0.2",
+          "Newtonsoft.Json": "12.0.3",
           "System.Dynamic.Runtime": "4.3.0",
           "System.IdentityModel.Tokens.Jwt": "5.2.0"
         },
@@ -2068,7 +2056,7 @@
         "dependencies": {
           "Microsoft.IdentityModel.Logging": "5.2.0",
           "NETStandard.Library": "2.0.3",
-          "Newtonsoft.Json": "11.0.2",
+          "Newtonsoft.Json": "12.0.3",
           "System.Collections": "4.3.0",
           "System.Diagnostics.Tools": "4.3.0",
           "System.Runtime": "4.3.0",
@@ -2308,16 +2296,10 @@
         },
         "compileOnly": true
       },
-      "Newtonsoft.Json/11.0.2": {
-        "compile": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
-        },
-        "compileOnly": true
-      },
       "Newtonsoft.Json.Bson/1.0.1": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "12.0.3"
         },
         "compile": {
           "lib/netstandard1.3/Newtonsoft.Json.Bson.dll": {}
@@ -2597,7 +2579,7 @@
         "dependencies": {
           "Microsoft.IdentityModel.Tokens": "5.2.0",
           "NETStandard.Library": "2.0.3",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "12.0.3"
         },
         "compile": {
           "lib/netstandard1.4/System.IdentityModel.Tokens.Jwt.dll": {}
@@ -3385,40 +3367,26 @@
       "path": "microsoft.entityframeworkcore.tools/2.1.14",
       "hashPath": "microsoft.entityframeworkcore.tools.2.1.14.nupkg.sha512"
     },
-    "NLog/4.5.11": {
+    "Newtonsoft.Json/12.0.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Yni/XrDfbEhaCSXJsDkmW/n5AunhOxZ7OKKb+0U1I1/d8ZaKt3Jjzf20g/xPiKljmYuZKYqI5iI34g138kK8UQ==",
-      "path": "nlog/4.5.11",
-      "hashPath": "nlog.4.5.11.nupkg.sha512"
+      "sha512": "sha512-6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "path": "newtonsoft.json/12.0.3",
+      "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
     },
-    "NLog.Config/4.5.11": {
+    "Newtonsoft.Json.Schema/3.0.14": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-t5HsU37Yc11YOZnKWPiQa2gL8tVFtpEwBShlEo5qwT7//U2XbUjWv+kXuG0WeQmg14lWhRfhjpksUSYY52TIRA==",
-      "path": "nlog.config/4.5.11",
-      "hashPath": "nlog.config.4.5.11.nupkg.sha512"
+      "sha512": "sha512-Qnu41yEFuMEJMuD1kJgslc4cF981K+hA7SmgXQ/N6pk6Zknvxt4g5Hx7KRykycP3oKyoz3aTFRV/TX+Vp6v7uQ==",
+      "path": "newtonsoft.json.schema/3.0.14",
+      "hashPath": "newtonsoft.json.schema.3.0.14.nupkg.sha512"
     },
-    "NLog.Extensions.Logging/1.4.0": {
+    "NLog/5.0.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-XughK7kRM1b+IuG4bZEpShHLweTCRNQb4kDUMsiob03QVpnacgcis6wDS0KlyXYaF/3Itid5b8+VbTBeP4WKhA==",
-      "path": "nlog.extensions.logging/1.4.0",
-      "hashPath": "nlog.extensions.logging.1.4.0.nupkg.sha512"
-    },
-    "NLog.Schema/4.5.11": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-TwhhjrfaqYAI2KnmzLaTapMHMAYqMf52/5vXdXiw3sZaSaBC0aPtEKWL+jAfR127r03N1fgMiVCyJbyuT1w4zA==",
-      "path": "nlog.schema/4.5.11",
-      "hashPath": "nlog.schema.4.5.11.nupkg.sha512"
-    },
-    "NLog.Web.AspNetCore/4.8.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Bs9tHNwdTDA7FFxS+tqxrr0EQAZjcnex6drcjCni9yHEupZdo5wOJP3oSGe+2W1enHo3RjglM2CvVbFuqbhcXA==",
-      "path": "nlog.web.aspnetcore/4.8.0",
-      "hashPath": "nlog.web.aspnetcore.4.8.0.nupkg.sha512"
+      "sha512": "sha512-NOTWSyUEljmjMq7OqZ1X9iu4bJ+rW/o6pt79Jq8j2Q7s8DyoMMCJwe0HoCKcNjhYRJ++b+E8erH6E6WwaCTshQ==",
+      "path": "nlog/5.0.5",
+      "hashPath": "nlog.5.0.5.nupkg.sha512"
     },
     "Remotion.Linq/2.2.0": {
       "type": "package",
@@ -4577,13 +4545,6 @@
       "sha512": "sha512-st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
-    },
-    "Newtonsoft.Json/11.0.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ==",
-      "path": "newtonsoft.json/11.0.2",
-      "hashPath": "newtonsoft.json.11.0.2.nupkg.sha512"
     },
     "Newtonsoft.Json.Bson/1.0.1": {
       "type": "package",

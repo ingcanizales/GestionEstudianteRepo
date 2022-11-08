@@ -10,6 +10,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EstudiantesCore.Dtos;
+using DevExtreme.AspNet.Data;
+using System.Collections;
 
 namespace EstudiantesInfraestruture.Implementations
 {
@@ -190,9 +193,9 @@ namespace EstudiantesInfraestruture.Implementations
                               Nombre = Estu.Nombre,
                               Apellido = Estu.Apellido,
                               Documento = Estu.Documento,
-                              Codigo = Esta.Code,
-                              NombreEstado = Esta.Nombre,
-                              EstadoId = Esta.Id
+                              //Codigo = Esta.Code,
+                              //NombreEstado = Esta.Nombre,
+                              //EstadoId = Esta.Id
 
 
                           }).ToList();
@@ -234,5 +237,74 @@ namespace EstudiantesInfraestruture.Implementations
                 .Include(s=>s.Estudiante).ToList();
             return notas;
         }
+
+        public List<EstudiantesViewModels> GetEstudiantesOnDemanda(DataSourceLoadOptionsBase loadOptions, DateTime fechaInicio, DateTime fechaFin, int estadoId, int materiaId, string identificacion)
+        {
+            List<EstudiantesViewModels> listaDetalle = new List<EstudiantesViewModels>();
+            string donde = "";
+            //string orden = FilterOnDemand.GenerarOrden(loadOptions.Sort);
+
+            IList Filtrado = loadOptions.Filter;
+
+
+            var Datos = (from Estu in _dbContext.Estudiante
+                         join Esta in _dbContext.EstadoEstudiante
+                         on Estu.Estado.Id equals Esta.Id
+                         join mate in _dbContext.MateriasXEstudiante
+                         on Estu.Id equals mate.Estudiante.Id
+                         orderby Estu.Estado.Id
+                         select new EstudiantesViewModels
+                         {
+                             Nombre = Estu.Nombre,
+                             Apellido = Estu.Apellido,
+                             Documento = Estu.Documento,
+                             MateriaId = mate.Materia.Id,
+                             NombreEstado = Esta.Nombre,
+                             EstadoId = mate.Estado.Id,
+                             FechaIngreso = Estu.FechaIngreso,
+                             FechaRetiro = Estu.FechaEgreso,
+                             //Estado = Estu.Estado,
+                             Email = Estu.Email,
+                             TipoDocumento = Estu.TipoDocumento
+                            
+                         }).AsNoTracking();
+
+            if (materiaId != 0)
+            {
+                //Datos = Datos.Where(j => !string.IsNullOrEmpty(j.Materia.ToString()) && (j.Materia.ToString()).ToLower() == materia.ToLower());
+                Datos = Datos.Where(j => j.MateriaId == materiaId && j.EstadoId == EnumEstadoMateria.Activo);
+
+            }
+
+            if (!string.IsNullOrEmpty(identificacion))
+            {
+                Datos = Datos.Where(j => j.Documento == identificacion);
+            }
+
+            if (estadoId != 0)
+            {
+                Datos = Datos.Where(j => j.EstadoId == estadoId).GroupBy(a => a.Documento).Select(grp => grp.First());
+            }
+
+            if (fechaInicio != new DateTime() && fechaFin != new DateTime())
+            {
+                Datos = Datos.Where(j => j.FechaIngreso >= fechaInicio.Date && j.FechaRetiro.Date < fechaFin.Date.AddDays(1));
+            }
+            else if (fechaInicio != new DateTime() && fechaFin == new DateTime())
+            {
+                Datos = Datos.Where(j => j.FechaIngreso.Date >= fechaInicio.Date);
+            }
+            else if (fechaInicio == new DateTime() && fechaFin != new DateTime())
+            {
+                Datos = Datos.Where(j => j.FechaRetiro.Date < fechaFin.Date.AddDays(1));
+            }
+
+            listaDetalle = Datos.ToList();
+            return listaDetalle;
+
+
+        }
+
+       
     }
 }

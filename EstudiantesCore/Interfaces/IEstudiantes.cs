@@ -1,4 +1,5 @@
-﻿using EstudiantesCore.Entidades;
+﻿using DevExtreme.AspNet.Data;
+using EstudiantesCore.Entidades;
 using EstudiantesCore.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -44,5 +45,8 @@ namespace EstudiantesCore.Interfaces
         void EliminarEstudiante(int idEstudiante);
 
         List<Notas> ObtenerNotasById(int idEstudiante);
+        List<EstudiantesViewModels> GetEstudiantesOnDemanda(DataSourceLoadOptionsBase loadOptions, DateTime fechaInicio, DateTime fechaFin, int estadoId, int materiaId, string identificacion);
+        
     }
+        
 }
