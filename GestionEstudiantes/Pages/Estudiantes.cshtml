@@ -41,7 +41,7 @@
     .Pager(s => s.AllowedPageSizes(new List<int>
     { 5, 10, 15 }).ShowNavigationButtons(true).ShowPageSizeSelector(true))
     .SearchPanel(d => d.Visible(true))
-    .DataSource(s => s.RemoteController().LoadUrl("/Estudiantes?handler=AllEstudiante"))
+    .DataSource(s => s.RemoteController().LoadUrl("/Estudiantes?handler=AllEstudiante").OnBeforeSend("MandarParametrosBusqueda"))
     .Columns(s=>
     {
         s.AddFor(q => q.TipoDocumento.Id).Caption("Tipo de documento").Lookup(q => q.DataSource(f => f.RemoteController().LoadUrl("/Estudiantes?handler=TipoDocumento").Key("Id")).ValueExpr("Id").DisplayExpr("Nombre"));

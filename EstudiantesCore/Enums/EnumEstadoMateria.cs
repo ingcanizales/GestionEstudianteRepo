@@ -6,8 +6,8 @@ namespace EstudiantesCore.Enums
 {
     public static class EnumEstadoMateria 
     {
-        public static string Activo = "A";
-        public static string Inactivo = "I";
+        public static int Activo = 1;
+        public static int Inactivo = 2;
       
     }
 }

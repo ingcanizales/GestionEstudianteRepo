@@ -50,7 +50,6 @@ C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudiantes\obj\De
 C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\GestionEstudiantes\bin\Debug\netcoreapp2.1\NuGet.config
 C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\GestionEstudiantes\bin\Debug\netcoreapp2.1\appsettings.Development.json
 C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\GestionEstudiantes\bin\Debug\netcoreapp2.1\appsettings.json
-C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\GestionEstudiantes\bin\Debug\netcoreapp2.1\NLog.config
 C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\GestionEstudiantes\bin\Debug\netcoreapp2.1\GestionEstudiantes.deps.json
 C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\GestionEstudiantes\bin\Debug\netcoreapp2.1\GestionEstudiantes.runtimeconfig.json
 C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\GestionEstudiantes\bin\Debug\netcoreapp2.1\GestionEstudiantes.runtimeconfig.dev.json
