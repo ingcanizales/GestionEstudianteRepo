@@ -42,6 +42,8 @@ namespace EstudiantesCore.ViewModels
        
         public TipoDocumento TipoDocumento { get; set; }
 
+        public int EstudianteId { get; set; }
+
         //public EstadoMateria Estado { get; set; }
 
 

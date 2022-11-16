@@ -42,11 +42,24 @@ namespace EstudiantesCore.Interfaces
 
         List<EstudiantesViewModels> ObtenerDetalle();
 
-        void EliminarEstudiante(int idEstudiante);
+        void CancelarEstudiante(int idEstudiante);
 
         List<Notas> ObtenerNotasById(int idEstudiante);
         List<EstudiantesViewModels> GetEstudiantesOnDemanda(DataSourceLoadOptionsBase loadOptions, DateTime fechaInicio, DateTime fechaFin, int estadoId, int materiaId, string identificacion);
-        
+
+        /// <summary>
+        /// Cancela Varios Estudiantes.
+        /// </summary>
+        /// <param name="idEstudiantes"></param>
+        List<Estudiante> CancelarVariosEstudiantes(List<int> idEstudiantes);
+
+        List<Estudiante> GetListEstudianteById(params int[] idEstudiantes);
+
+        List<Estudiante> MatricularVariosEstudiantes(List<int> idEstudiantes);
+
+        List<Estudiante> EgresarVariosEstudiantes(List<int> idEstudiantes);
+
+
     }
         
 }

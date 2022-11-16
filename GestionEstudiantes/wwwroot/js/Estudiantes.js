@@ -175,10 +175,10 @@ async function EliminarEstudiante(e) {
 
     try {
         var idEstudiante = e.row.data.Id;
-        
+
         var estudiante = await $.ajax({
             method: "POST",
-            url: "/Estudiantes?handler=EliminarEstudiante",
+            url: "/Estudiantes?handler=CancelarEstudiante",
             data: { idEstudiante: idEstudiante }
         });
 
@@ -192,13 +192,14 @@ async function EliminarEstudiante(e) {
             return;
         }
         else {
-            //$("#divgrid").hide();
-            //$("#divformulario").show();
-            $("#FormEstudiante").dxForm("instance").resetValues();
-            $("#FormEstudiante").dxForm("instance").option("formData", estudiante);
-            //$("#FormEstudiante").dxForm("instance").getEditor("TipoDocumento").option("readOnly", true);
-            //$("#FormEstudiante").dxForm("instance").getEditor("Documento").option("readOnly", true);
-            //isEdition = true;
+            await Swal.fire(
+                'Atención',
+                'Estudiante Eliminado Correctamente',
+                'success'
+            )
+            $("#TableEstudiantes").dxDataGrid("instance").refresh();
+            
+            return;
         }
     }
     catch (error) {
@@ -208,6 +209,194 @@ async function EliminarEstudiante(e) {
             'error'
         )
     }
+}
 
+    
 
+    function SeleccionFila(e) {
+        let habilitarBtn = true;
+        if (e.selectedRowKeys.length > 0) {
+            habilitarBtn = false;
+        }
+        $("#BtnCancelar").dxButton("instance").option("disabled", habilitarBtn);
+    }
+
+    function CancelarEstudiantes() {
+
+        var gridCancelar = $("#TableEstudiantes").dxDataGrid("instance");
+        var idestudiantes = gridCancelar.getSelectedRowKeys();
+
+        if (idestudiantes.length > 0) {
+            Swal.fire({
+                title: '¿Está seguro de cancelar los Estudiantes seleccionados?',
+                text: "Confirma los cambios",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.value) {
+
+                    Swal.fire({
+                        title: 'Eliminando Estudiantes....',
+                        html: 'Un momento por favor, no cierre la ventana del navegador',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        onBeforeOpen: () => {
+                            Swal.showLoading();
+                        },
+                    });
+                    $.post("?handler=CancelarVariosEstudiante", { idEstudiantes: idestudiantes },
+                        function success(data) {
+                        if (data.length > 0) {
+                            Swal.fire(
+                                'Atención',
+                                'Estudiantes Eliminados Correctamente',
+                                'success'
+                            )
+                            gridCancelar.refresh();
+
+                            return;
+                        }
+                        else {
+                            Swal.fire(
+                                'Atención',
+                                'Estudiante no encontrado',
+                                'info'
+                            );
+
+                            return;
+                        }
+                        gridCancelar.refresh();
+                    });
+           
+                    };
+                }
+            )
+        }
+        else {
+            Swal.fire('¡Atención!', 'Por favor, seleccione al menos un Estudiante a cancelar', 'info');
+        }
+}
+
+function MatricularEstudiantes() {
+
+    var gridCancelar = $("#TableEstudiantes").dxDataGrid("instance");
+    var idestudiantes = gridCancelar.getSelectedRowKeys();
+
+    if (idestudiantes.length > 0) {
+        Swal.fire({
+            title: '¿Está seguro de Matricular el/los Estudiantes seleccionados?',
+            text: "Confirma los cambios",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.value) {
+
+                Swal.fire({
+                    title: 'Matriculando Estudiantes....',
+                    html: 'Un momento por favor, no cierre la ventana del navegador',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    onBeforeOpen: () => {
+                        Swal.showLoading();
+                    },
+                });
+                $.post("?handler=MatricularVariosEstudiante", { idEstudiantes: idestudiantes },
+                    function success(data) {
+                        if (data.length > 0) {
+                            Swal.fire(
+                                'Atención',
+                                'Estudiantes Matriculado Correctamente',
+                                'success'
+                            )
+                            gridCancelar.refresh();
+
+                            return;
+                        }
+                        else {
+                            Swal.fire(
+                                'Atención',
+                                'Estudiante no encontrado',
+                                'info'
+                            );
+
+                            return;
+                        }
+                        gridCancelar.refresh();
+                    });
+
+            };
+        }
+        )
+    }
+    else {
+        Swal.fire('¡Atención!', 'Por favor, seleccione al menos un Estudiante a cancelar', 'info');
+    }
+}
+
+function EgresarEstudiantes() {
+
+    var gridCancelar = $("#TableEstudiantes").dxDataGrid("instance");
+    var idestudiantes = gridCancelar.getSelectedRowKeys();
+
+    if (idestudiantes.length > 0) {
+        Swal.fire({
+            title: '¿Está seguro de Egresar el/los Estudiantes seleccionados?',
+            text: "Confirma los cambios",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.value) {
+
+                Swal.fire({
+                    title: 'Egresando Estudiantes....',
+                    html: 'Un momento por favor, no cierre la ventana del navegador',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    onBeforeOpen: () => {
+                        Swal.showLoading();
+                    },
+                });
+                $.post("?handler=EgresarVariosEstudiante", { idEstudiantes: idestudiantes },
+                    function success(data) {
+                        if (data.length > 0) {
+                            Swal.fire(
+                                'Atención',
+                                'Estudiantes Egresado Correctamente',
+                                'success'
+                            )
+                            gridCancelar.refresh();
+
+                            return;
+                        }
+                        else {
+                            Swal.fire(
+                                'Atención',
+                                'Estudiante no encontrado',
+                                'info'
+                            );
+
+                            return;
+                        }
+                        gridCancelar.refresh();
+                    });
+
+            };
+        }
+        )
+    }
+    else {
+        Swal.fire('¡Atención!', 'Por favor, seleccione al menos un Estudiante a cancelar', 'info');
+    }
 }

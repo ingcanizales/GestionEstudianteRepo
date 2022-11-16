@@ -37,11 +37,15 @@
     .AllowColumnReordering(true)
     .AllowColumnResizing(true)
     .ColumnAutoWidth(true)
-    .Paging(s => s.Enabled(true).PageSize(5))
+    .Paging(s => s.Enabled(true).PageSize(15))
     .Pager(s => s.AllowedPageSizes(new List<int>
     { 5, 10, 15 }).ShowNavigationButtons(true).ShowPageSizeSelector(true))
     .SearchPanel(d => d.Visible(true))
-    .DataSource(s => s.RemoteController().LoadUrl("/Estudiantes?handler=AllEstudiante").OnBeforeSend("MandarParametrosBusqueda"))
+    .DataSource(s => s.RemoteController().LoadUrl("/Estudiantes?handler=AllEstudiante").OnBeforeSend("MandarDataEstudiante").Key("Id"))
+    .NoDataText("No se encontraron acuerdos incumplidos según los filtros seleccionados")
+    .OnSelectionChanged("SeleccionFila")
+    .Selection(s => s.Mode(SelectionMode.Multiple).AllowSelectAll(true).SelectAllMode(SelectAllMode.AllPages))
+    .ElementAttr("class", "tablaSiot altoHeader posicionTabla")
     .Columns(s=>
     {
         s.AddFor(q => q.TipoDocumento.Id).Caption("Tipo de documento").Lookup(q => q.DataSource(f => f.RemoteController().LoadUrl("/Estudiantes?handler=TipoDocumento").Key("Id")).ValueExpr("Id").DisplayExpr("Nombre"));
@@ -62,8 +66,7 @@
 
     }).MasterDetail(d => d.AutoExpandAll(false).Enabled(true).Template(new TemplateName("DetalleEstudiante")))
     )
-
-
+            
             </div>
 
             <div style="display:none" id="divformulario">
@@ -71,9 +74,24 @@
             </div>
         </div>
     </div>
-
+    
 
 </div>
+
+<div class="m-3">
+    <div class="btn-group">
+        @(Html.DevExtreme().Button().Text("Cancelar Estudiantes").Type(ButtonType.Default).Icon("remove").ID("BtnCancelar").OnClick("CancelarEstudiantes").Type(ButtonType.Default))
+    </div>
+
+    <div class="btn-group">
+        @(Html.DevExtreme().Button().Text("Matricular Estudiantes").Type(ButtonType.Default).Icon("add").ID("BtnMatricular").OnClick("MatricularEstudiantes").Type(ButtonType.Default))
+    </div>
+
+    <div class="btn-group">
+        @(Html.DevExtreme().Button().Text("Egresar Estudiantes").Type(ButtonType.Default).Icon("arrowright").ID("BtnEgresar").OnClick("EgresarEstudiantes").Type(ButtonType.Default))
+    </div>
+</div>
+
 
 
 @using (Html.DevExtreme().NamedTemplate("DetalleEstudiante"))
@@ -96,22 +114,22 @@
 
 
 @*@(Html.DevExtreme().Popup()
-            .ID("PopDetalleEstudiante")
-            .ShowTitle(true)
-            .Title("Datos del estudiante")
-            .Visible(false)
-            .DeferRendering(false)
-            .DragEnabled(true)
-            .Width(1200)
-            .Height(800)
-            .CloseOnOutsideClick(true)
-            .ContentTemplate(
-            @<text>
-                <div>
-                    @(await Html.PartialAsync("/Pages/PartialViews/_formestudiante.cshtml"))
-                </div>
-            </text>)
-)*@
+                .ID("PopDetalleEstudiante")
+                .ShowTitle(true)
+                .Title("Datos del estudiante")
+                .Visible(false)
+                .DeferRendering(false)
+                .DragEnabled(true)
+                .Width(1200)
+                .Height(800)
+                .CloseOnOutsideClick(true)
+                .ContentTemplate(
+                @<text>
+                    <div>
+                        @(await Html.PartialAsync("/Pages/PartialViews/_formestudiante.cshtml"))
+                    </div>
+                </text>)
+    )*@
 
 
 

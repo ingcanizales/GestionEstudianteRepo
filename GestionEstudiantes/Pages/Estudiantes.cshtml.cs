@@ -211,15 +211,23 @@ namespace GestionEstudiantes.Pages
 
         }
 
+        /// <summary>
+        /// Cancela un solo Estudiante.
+        /// </summary>
+        /// <param name="idEstudiante"></param>
+        /// <returns></returns>
+
         [HttpPost]
-        public IActionResult OnPostEliminarEstudiante(int idEstudiante)
+        public IActionResult OnPostCancelarEstudiante(int idEstudiante)
         {
             try
             {
+               
+
                 if (idEstudiante > 0)
                 {
-                   
-                    _gestionEstudiante.EliminarEstudiante(idEstudiante);
+
+                    _gestionEstudiante.CancelarEstudiante(idEstudiante);
                 }
                
 
@@ -232,15 +240,15 @@ namespace GestionEstudiantes.Pages
             }
         }
 
-        public IActionResult OnGetObtenerNotasById(DataSourceLoadOptions options, int idEstudiante)
+        public IActionResult OnGetObtenerNotasById(DataSourceLoadOptions options, int idestudiante)
         {
             try
             {
                 List<Notas> materias = new List<Notas>();
 
-                if (idEstudiante != 0)
+                if (idestudiante != 0)
                 {
-                    materias = _gestionEstudiante.ObtenerNotasById(idEstudiante);
+                    materias = _gestionEstudiante.ObtenerNotasById(idestudiante);
                 }
 
                 return new JsonResult(DataSourceLoader.Load(materias, options));
@@ -251,6 +259,77 @@ namespace GestionEstudiantes.Pages
             }
         }
 
+        [HttpPost]
+        public IActionResult OnPostCancelarVariosEstudiante(List<int>idEstudiantes)
+        {
+                try
+            {
+
+                List<Estudiante> estudiantes = new List<Estudiante>();
+
+                if (idEstudiantes.Count>0)
+                {
+
+                   estudiantes = _gestionEstudiante.CancelarVariosEstudiantes(idEstudiantes);
+                }
+               
+
+                    return StatusCode(200,estudiantes);
+
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult OnPostMatricularVariosEstudiante(List<int> idEstudiantes)
+        {
+            try
+            {
+
+                List<Estudiante> estudiantes = new List<Estudiante>();
+
+                if (idEstudiantes.Count > 0)
+                {
+
+                    estudiantes = _gestionEstudiante.MatricularVariosEstudiantes(idEstudiantes);
+                }
+
+
+                return StatusCode(200, estudiantes);
+
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult OnPostEgresarVariosEstudiante(List<int> idEstudiantes)
+        {
+            try
+            {
+
+                List<Estudiante> estudiantes = new List<Estudiante>();
+
+                if (idEstudiantes.Count > 0)
+                {
+
+                    estudiantes = _gestionEstudiante.EgresarVariosEstudiantes(idEstudiantes);
+                }
+
+
+                return StatusCode(200, estudiantes);
+
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }
 

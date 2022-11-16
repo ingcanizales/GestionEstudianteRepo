@@ -203,23 +203,26 @@ namespace EstudiantesInfraestruture.Implementations
            
         }
 
-        public void EliminarEstudiante(int idEstudiante)
+        public void CancelarEstudiante(int idEstudiante)
         {
-            //bool existeEstudiante = _dbContext.Estudiante.Any(s => s.Id == estudiante.Id);
+          
             Estudiante estudiante = new Estudiante();
             estudiante = _dbContext.Estudiante.Find(idEstudiante);
+            var fechaActual = DateTime.Now.Date;
 
             if (estudiante != null)
             {
-                List<MateriasXEstudiante> materiasxestudiantes = new List<MateriasXEstudiante>();
-                materiasxestudiantes = _dbContext.MateriasXEstudiante.Where(s => s.Id == idEstudiante).ToList();
-                foreach (var element in materiasxestudiantes)
-                {
-                    _dbContext.Attach(element);
-                    _dbContext.RemoveRange(element);
-                }
+                
+                //foreach (var element in materiasxestudiantes)
+                //{
+                //    estudiante.FechaEgreso = fechaActual.Date;
+                //    estudiante.Estado = this.GetEstadoByCodigo(EnumEstadoEstudiante.Cancelado);
+                //    _dbContext.Attach(element);
+                //    _dbContext.Update(element);
+                //}
+                estudiante.FechaRetiro = fechaActual.Date;
                 estudiante.Estado = this.GetEstadoByCodigo(EnumEstadoEstudiante.Cancelado);
-                _dbContext.Estudiante.Remove(estudiante);
+                _dbContext.Estudiante.Update(estudiante);
                 _dbContext.SaveChanges();
             }
             else
@@ -265,7 +268,8 @@ namespace EstudiantesInfraestruture.Implementations
                              FechaRetiro = Estu.FechaEgreso,
                              //Estado = Estu.Estado,
                              Email = Estu.Email,
-                             TipoDocumento = Estu.TipoDocumento
+                             TipoDocumento = Estu.TipoDocumento,
+                             EstudianteId = Estu.Estado.Id
                             
                          }).AsNoTracking();
 
@@ -305,6 +309,117 @@ namespace EstudiantesInfraestruture.Implementations
 
         }
 
-       
+        public List<Estudiante> CancelarVariosEstudiantes(List<int> idEstudiantes)
+        {
+            List<Estudiante> ListDetalleAnular = new List<Estudiante>();
+            var fechaActual = DateTime.Now.Date;
+            foreach (var item in idEstudiantes)
+            {
+                Estudiante estudiante = _dbContext.Estudiante.Where(s => s.Id == item).Include(s => s.Estado).First();
+               
+
+                if (estudiante.Estado.Code != EnumEstadoEstudiante.Cancelado.ToString())
+                {
+                    estudiante.FechaRetiro = fechaActual.Date;
+                    estudiante.Estado = this.GetEstadoByCodigo(EnumEstadoEstudiante.Cancelado);
+                    List<EstadoEstudiante> estadosEstudiante = new List<EstadoEstudiante>();
+                    estadosEstudiante = this.GetEstados();
+                    EstadoEstudiante estadoCancelado = estadosEstudiante.Where(s => s.Code == EnumEstadoEstudiante.Cancelado).FirstOrDefault();
+                   
+                        _dbContext.Attach(estudiante);
+                        _dbContext.Estudiante.Update(estudiante);
+
+                    ListDetalleAnular.Add(new Estudiante
+                    {
+                        Estado = estudiante.Estado,
+                        Id = estudiante.Id
+                    }); 
+
+                }
+            }
+
+            _dbContext.SaveChanges();
+            return ListDetalleAnular;
+        }
+        
+        public List<Estudiante> GetListEstudianteById(params int[] idEstudiantes)
+        {
+            return _dbContext.Estudiante
+                   .Include(s => s.TipoDocumento)
+                   .Include(s => s.Estado)
+                  /* .Where(s => s.Id == Id)*/.ToList();
+        }
+
+        public List<Estudiante> MatricularVariosEstudiantes(List<int> idEstudiantes)
+        {
+            List<Estudiante> ListDetalleAnular = new List<Estudiante>();
+
+            var fechaActual = DateTime.Now.Date;
+            foreach (var item in idEstudiantes)
+            {
+                Estudiante estudiante = _dbContext.Estudiante.Where(s => s.Id == item).Include(s => s.Estado).First();
+
+
+                if (estudiante.Estado.Code != EnumEstadoEstudiante.Matriculado.ToString())
+                {
+                    
+                    estudiante.FechaIngreso = fechaActual.Date;
+                    estudiante.FechaRetiro = DateTime.MinValue;
+                    estudiante.FechaEgreso = DateTime.MinValue;
+                    estudiante.Estado = this.GetEstadoByCodigo(EnumEstadoEstudiante.Matriculado);
+                    List<EstadoEstudiante> estadosEstudiante = new List<EstadoEstudiante>();
+                    estadosEstudiante = this.GetEstados();
+                    EstadoEstudiante estadoCancelado = estadosEstudiante.Where(s => s.Code == EnumEstadoEstudiante.Matriculado).FirstOrDefault();
+
+                    _dbContext.Attach(estudiante);
+                    _dbContext.Estudiante.Update(estudiante);
+
+                    ListDetalleAnular.Add(new Estudiante
+                    {
+                        Estado = estudiante.Estado,
+                        Id = estudiante.Id
+                    });
+
+                }
+            }
+
+            _dbContext.SaveChanges();
+            return ListDetalleAnular;
+        }
+
+        public List<Estudiante> EgresarVariosEstudiantes(List<int> idEstudiantes)
+        {
+            List<Estudiante> ListDetalleAnular = new List<Estudiante>();
+            var fechaActual = DateTime.Now.Date;
+            foreach (var item in idEstudiantes)
+            {
+                Estudiante estudiante = _dbContext.Estudiante.Where(s => s.Id == item).Include(s => s.Estado).First();
+
+
+                if (estudiante.Estado.Code != EnumEstadoEstudiante.Egresado.ToString())
+                {
+                    estudiante.FechaEgreso = fechaActual.Date;
+                    estudiante.FechaRetiro = DateTime.MinValue;
+                    estudiante.Estado = this.GetEstadoByCodigo(EnumEstadoEstudiante.Egresado);
+                    List<EstadoEstudiante> estadosEstudiante = new List<EstadoEstudiante>();
+                    estadosEstudiante = this.GetEstados();
+                    EstadoEstudiante estadoCancelado = estadosEstudiante.Where(s => s.Code == EnumEstadoEstudiante.Egresado).FirstOrDefault();
+
+                    _dbContext.Attach(estudiante);
+                    _dbContext.Estudiante.Update(estudiante);
+
+                    ListDetalleAnular.Add(new Estudiante
+                    {
+                        Estado = estudiante.Estado,
+                        Id = estudiante.Id
+                    });
+
+                }
+            }
+
+            _dbContext.SaveChanges();
+            return ListDetalleAnular;
+        }
+
     }
 }
