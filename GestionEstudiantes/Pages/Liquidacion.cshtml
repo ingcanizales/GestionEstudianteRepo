@@ -1,0 +1,101 @@
+﻿@page
+@model GestionEstudiantes.Pages.LiquidacionModel
+@{
+}
+
+
+<h1>Ventanilla de atención</h1>
+<div class="col-md-10">
+    @(Html.DevExtreme().TagBox()
+    .ID("listTramites")
+
+    .DisplayExpr("NombreTramite")
+    .SearchEnabled(true)
+    .ShowSelectionControls(false)
+    .NoDataText("No existen tramites para realizar")
+    .Placeholder("Seleccione los tramites que desea realizar")
+    .StylingMode(EditorStylingMode.Filled)
+    .SearchExpr(new string[] { "NombreTramite" })
+    .ItemTemplate("<div><%= NombreTramite %></div>")
+    @*.OnSelectionChanged(@<text>
+                function(data) {
+                desabilitartramites(data);
+                LoadPropietarios(data);
+                }
+    </text>)*@
+        )
+</div>
+
+<div class="container-fluid pestañasContainer" id="listapretamitesliquidacion">
+    @using EstudiantesCore.ViewModels;
+    <h1>Trámites por liquidar</h1>
+    @*@Html.HiddenFor(m => Model.PreTramitePrecargadoId)*@
+    @(Html.DevExtreme().DataGrid<ModelTurno>()
+        .ID("grid_pretramites_liquidacion")
+        .ElementAttr("class","altoHeader")
+        
+        .DataSource(s => s.RemoteController().LoadUrl("/Turno?handler=CrearPretramite").OnBeforeSend("MandarPretramite").Key("Id"))
+       
+        .FilterRow(filterRow => filterRow
+        .Visible(true)
+        .ApplyFilter(GridApplyFilterMode.Auto).ShowOperationChooser(false)
+        )
+        .AllowColumnResizing(true)
+        .RemoteOperations(s => s.Filtering(true).Paging(true).Sorting(true))
+        .ColumnAutoWidth(false)
+        .WordWrapEnabled(true)
+        .Paging(paging => paging.PageSize(15).Enabled(true))
+        .Pager(pager =>
+        {
+            pager.ShowPageSizeSelector(true);
+            pager.ShowNavigationButtons(true);
+            pager.Visible(true);
+            pager.AllowedPageSizes(new List<int> { 5, 10, 15, 20 });
+            pager.ShowInfo(true);
+        })
+
+        .ShowColumnLines(true)
+        .ShowRowLines(true)
+        .NoDataText("No se encontraron trámites por liquidar")
+        .ShowBorders(true)
+        .RowAlternationEnabled(true)
+        //.OnContentReady("actualizarPagina")
+        .Selection(selection =>
+        {
+            selection.AllowSelectAll(true);
+            selection.Deferred(false);
+            selection.Mode(SelectionMode.Single);
+
+        })
+        .Selection(s => s.Mode(SelectionMode.Multiple).AllowSelectAll(true).SelectAllMode(SelectAllMode.AllPages))
+        @*.OnRowClick(@<text>
+            function (e)
+            {
+            Obtener_Grid_Pretramites_Liquidacion(e);
+            }
+        </text>)*@
+            .Columns(columns =>
+            {
+                //columns.AddFor(m => m.FechaModifica).SortOrder(SortOrder.Desc).Visible(false);
+                //columns.AddFor(m => m.TipoTramite.Tipo).Caption("Tipo de trámite").AllowEditing(true).AllowFiltering(true);
+                //columns.AddFor(m => m.NombreTramitesRealizar).Caption("Trámite").AllowEditing(true).AllowFiltering(true).MinWidth(244);
+
+                //columns.AddFor(m => m.TipoDocumento.Id).Caption("Tipo de identificación").AllowEditing(true).AllowFiltering(true).MinWidth(196)
+                //.EditorOptions(new { showClearButton = true, placeholder = "Seleccione el tipo de documento" });
+                //.Lookup(l => l.DataSource(d => d.RemoteController()
+                //.LoadUrl("/Turno?handler=TipoDocumento"))
+                //.DisplayExpr("Valor1").DataSourceOptions(o => o.Sort("Valor1")).ValueExpr("Id"))/*.CalculateSortValue("TipoDocumentoPropietarioPrincipal.Valor1")*/;
+
+                columns.AddFor(m => m.Documento).Caption("Identificación").Alignment(HorizontalAlignment.Right).AllowEditing(true).EditorOptions(new { showClearButton = true });
+                columns.AddFor(m => m.NombreCompleto).Caption("Nombre").Alignment(HorizontalAlignment.Center).AllowEditing(true).EditorOptions(new { showClearButton = true });
+                columns.AddFor(m => m.Cargo).Caption("Cargo").Alignment(HorizontalAlignment.Right).AllowEditing(true).EditorOptions(new { showClearButton = true });
+                columns.AddFor(m => m.Fecha).Caption("Fecha de creación").Alignment(HorizontalAlignment.Center).AllowEditing(true).EditorOptions(new { showClearButton = true });
+            })
+    )
+</div>
+
+@section Scripts
+    {
+    <script src="~/js/Turno.js"></script>
+    <script src="~/js/scrollPopUps.js"></script>
+}

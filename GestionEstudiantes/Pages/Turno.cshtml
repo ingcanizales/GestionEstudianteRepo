@@ -1,0 +1,141 @@
+﻿@page
+@model GestionEstudiantes.Pages.TurnoModel
+@{
+}
+
+@using EstudiantesCore.Entidades;
+<h3>Prevalidación trámite</h3>
+
+
+
+<div class="tramiteBar"></div>
+
+
+<div id="divForm">
+
+    @using EstudiantesCore.ViewModels;
+    @using EstudiantesCore.Entidades;
+
+    @using (Html.BeginForm(FormMethod.Post, new { role = "form", id = "formularioTurno" }))
+    {
+        @Html.AntiForgeryToken();
+        @using (Html.DevExtreme().ValidationGroup())
+        {
+            @(Html.DevExtreme().Form<ModelTurno>()
+.Visible(true)
+.ID("formTurno")
+.ColCount(2)
+.Items(s =>
+{
+
+s.AddSimpleFor(m => m.TipoDocumento)/*.ColSpan(4)*/
+    .ValidationRules(m => m.AddRequired()
+    .Message("Campo requerido"))
+    .Label(d => d.Text("Tipo de documento"))
+    .Editor(f => f.SelectBox().ShowClearButton(true)
+    .ID("selectBoxTipoDocumento").Placeholder("Seleccione su tipo de documento").DisplayExpr("Nombre")
+    .DataSource(d => d.RemoteController().LoadUrl("/Turno?handler=TipoDocumento").Key("Id")
+    ));
+
+s.AddSimpleFor(m => m.Documento)
+//.ValidationRules(r => r.AddCustom().ValidationCallback("ValidarExistenciaPersonaEmpresaTransporte").Message("La persona está registrada como empresa de transporte"))
+.IsRequired(true)
+.DataField("documento")
+.Visible(true)
+.Label(l => l.Text("Identificación"))
+.Editor(e => e
+.TextBox()
+.ShowClearButton(true)
+.ID("cedulaId")
+.Visible(true)
+.OnValueChanged(@<text>
+        function(e){
+
+            LoadDatosById(e.value);
+        }
+        </text>)
+);
+
+s.AddSimpleFor(m => m.Nombre)
+.Visible(true)
+.Label(l => l.Text("Nombre"))
+.Editor(e => e
+.TextBox()
+.ID("Nombre")
+.Visible(true)
+.ShowClearButton(true)
+
+);
+
+
+s.AddSimpleFor(m => m.Apellido)
+.Visible(true)
+.Label(l => l.Text("Apellido"))
+.Editor(e => e
+.TextBox()
+.InputAttr(new { @style = "text-transform: uppercase" })
+.ID("Apellido")
+.Visible(true)
+.ShowClearButton(true)
+
+
+);
+
+
+
+s.AddSimpleFor(m => m.Cargo)/*.ColSpan(4)*/
+ .ValidationRules(m => m.AddRequired()
+ .Message("Campo requerido"))
+ .Label(d => d.Text("Turno"))
+ .Editor(f => f.SelectBox().ShowClearButton(true)
+ .ID("selectBoxCargos").Placeholder("Seleccione el Cargo")
+ .DataSource(d => d.RemoteController().LoadUrl("/Turno?handler=Cargos").Key("Id")
+ ));
+
+s.AddSimpleFor(m => m.NombreTramite)/*.ColSpan(4)*/
+.ValidationRules(m => m.AddRequired()
+.Message("Campo requerido"))
+.Label(d => d.Text("Tipo de documento"))
+.Editor(f => f.SelectBox().ShowClearButton(true)
+.ID("selectBoxTramite").Placeholder("Seleccione el Tramite a realizar")/*.DisplayExpr("Nombre")*/
+.DataSource(d => d.RemoteController().LoadUrl("/Turno?handler=Tramites").Key("Id")
+));
+
+s.AddEmpty().ColSpan(2);
+s.AddEmpty().ColSpan(1);
+
+s.AddButton()
+.HorizontalAlignment(HorizontalAlignment.Right)
+.ButtonOptions(b => b.Text("Asignar turno")
+.UseSubmitBehavior(false)
+.ID("crearTurno")
+.Type(ButtonType.Success)
+.ElementAttr("class", "CREAR")
+.Text("Asignar")
+.OnClick(@<text>
+            function (e){
+            EsconderGrid();
+            }
+        </text>)
+
+        );
+
+        })
+
+        )
+        }
+
+    }
+
+
+</div>
+
+<div style="display:none" id="divLiquidacion">
+    @(await Html.PartialAsync("/Pages/PartialViews/_Liquidacion.cshtml"))
+</div>
+
+@section Scripts
+    {
+    <script src="~/js/Turno.js"></script>
+    <script src="~/js/scrollPopUps.js"></script>
+}

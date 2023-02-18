@@ -330,6 +330,65 @@ namespace GestionEstudiantes.Pages
                 return StatusCode(500, e.Message);
             }
         }
+
+        /// <summary>
+        /// Método para obtener los documentos de los trámites seleccionados
+        /// </summary>
+        /// <param name="tramites">Lista de trámites seleccionados</param>
+        /// <returns>Lista de documentos</returns>
+        public IActionResult OnPostLoadDocumentos(List<Estudiante> tramites)
+        {
+            try
+            {
+
+                //List<Estudiante> estudiantes = new List<Estudiante>();
+
+                //if (idEstudiantes.Count > 0)
+                //{
+
+                //    estudiantes = _gestionEstudiante.EgresarVariosEstudiantes(idEstudiantes);
+                //}
+
+
+                return StatusCode(200 /*estudiantes*/);
+
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+            //List<Documento> documentos = new List<Documento>();
+            //try
+            //{
+            //    int pretramiteId = (int)HttpContext.Session.GetInt32("preTramiteSelectedId");
+            //    PreTramite preTramite = _Ventanilla.GetById<PreTramite>(pretramiteId);
+
+            //    List<Propietario> propietariosActuales = _Tramite.GetPropietariosVehiculo(preTramite.Placa);
+            //    var tempProp = HttpContext.Session.GetString("tempProp");
+            //    List<PropietarioPreTramite> tempPropietarios = JsonConvert.DeserializeObject<List<PropietarioPreTramite>>(tempProp);
+
+            //    documentos = _Ventanilla.LoadDocumentos(tramites, preTramite, propietariosActuales, tempPropietarios);
+
+            //    string json = JsonConvert.SerializeObject(documentos, Formatting.Indented);
+            //    HttpContext.Session.SetString("documentos", json);
+            //    string jsonTra = JsonConvert.SerializeObject(tramites, Formatting.Indented);
+            //    HttpContext.Session.SetString("tramitesSelected", jsonTra);
+
+            //    return new JsonResult(documentos);
+            //}
+            //catch (ListaDocumentosException e)
+            //{
+            //    Logger logger = LogManager.GetCurrentClassLogger();
+            //    logger.Error(e, "Error al obtener los documentos correspondientes al trámite.");
+            //    return new JsonResult("Error al obtener los documentos correspondientes al trámite.");
+            //}
+            //catch (Exception e)
+            //{
+            //    Logger logger = LogManager.GetCurrentClassLogger();
+            //    logger.Error(e, "Error al obtener los documentos correspondientes al trámite.");
+            //    return new JsonResult("Error al obtener los documentos correspondientes al trámite.");
+            //}
+        }
     }
 }
 

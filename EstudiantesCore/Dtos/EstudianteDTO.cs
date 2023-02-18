@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace EstudiantesCore.Dtos
@@ -46,5 +47,23 @@ namespace EstudiantesCore.Dtos
         public TipoDocumento TipoDocumento { get; set; }
        
         public EstadoEstudiante Estado { get; set; }
+
+        public bool RegistroCivil { get; set; }
+
+        [NotMapped]
+        public bool CertificadoEstudio { get; set; }
+
+        [NotMapped]
+        public bool FotocopiaCedula { get; set; }
+        [NotMapped]
+        public bool TargetaIdentidad { get; set; }
+        [NotMapped]
+        public bool PazySalvo { get; set; }
+        [NotMapped]
+        public bool Carpeta { get; set; }
+
+        [NotMapped]
+        public bool Foto { get; set; }
+
     }
 }

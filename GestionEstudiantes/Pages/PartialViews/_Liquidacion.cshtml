@@ -1,0 +1,163 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@using EstudiantesCore.Entidades;
+<div class="col-10">
+    @(Html.DevExtreme().TagBox()
+    .ID("listTramites")
+
+    .DisplayExpr("NombreTramite")
+    .SearchEnabled(true)
+    .ShowSelectionControls(false)
+    .NoDataText("No existen tramites para realizar")
+    .Placeholder("Seleccione los tramites que desea realizar")
+    .StylingMode(EditorStylingMode.Filled)
+    .SearchExpr(new string[] { "NombreTramite" })
+    .ItemTemplate("<div><%= NombreTramite %></div>")
+    @*.OnSelectionChanged(@<text>
+        function(data) {
+        desabilitartramites(data);
+        LoadPropietarios(data);
+        }*@
+    @*</text>)*@
+    )
+</div>
+
+<div class="container-fluid pestañasContainer" id="listapretamitesliquidacion">
+    @using EstudiantesCore.ViewModels;
+    <h1>Trámites por liquidar</h1>
+    @*@Html.HiddenFor(m => Model.PreTramitePrecargadoId)*@
+    @(Html.DevExtreme().DataGrid<Pretramite>()
+            .ID("TableMateria")
+            .ShowRowLines(true)
+            //.OnEditorPreparing("EditorPreparado")
+            //.OnEditingStart("SetEditmode")
+            .Export(s => s.Enabled(true))
+            .Editing(s=>s.AllowUpdating(true).UseIcons(true).Mode(GridEditMode.Form))
+            .RowAlternationEnabled(true)
+            .ShowBorders(true)
+            .ShowColumnLines(true)
+            .FilterRow(s => s.Visible(true))
+            .ShowRowLines(true)
+            .AllowColumnReordering(true)
+            .AllowColumnResizing(true)
+            .ColumnAutoWidth(true)
+            .Paging(s => s.Enabled(true).PageSize(5))
+            .SearchPanel(d => d.Visible(true))
+            .DataSource(s => s.RemoteController().LoadUrl("/Turno?handler=Pretramites").Key("Id"))
+        //.Selection(s => s.Mode(SelectionMode.Multiple).AllowSelectAll(true).SelectAllMode(SelectAllMode.AllPages))
+        .OnRowClick(@<text>
+            function (e)
+            {
+            Obtener_Grid_Pretramites_Liquidacion(e);
+            }
+        </text>)
+            .Columns(s =>
+            {
+
+                s.AddFor(q => q.Fecha).Caption("Fecha")/*.ValidationRules(k=>k.AddRequired().Message("Codido es requerido")).ValidationRules(y=>y.AddAsync().ValidationCallback("CodigoUnico").Message("Ya existe una matería con ese codigo registrado")).FormItem(h=>h.Editor(e=>e.TextBox().MaxLength(4)))*/;
+                s.AddFor(q => q.Documento).ValidationRules(g=>g.AddRequired().Message("El nombre es requerido")).Caption("Documento");
+                s.AddFor(q => q.NombreTramite).Caption("Tramite")/*.Lookup(g => g.DataSource(f => f.RemoteController().LoadUrl("/Materias?handler=ObtenerEstadoMaterias").Key("Id")).DisplayExpr("Nombre").ValueExpr("Id"))*/;
+                //s.AddFor(g => g.Persona.).ValidationRules(g => g.AddRequired().Message("El año es requerido")).Caption("Año").FormItem(k => k.Editor(l => l.NumberBox().Min(DateTime.Now.Year)));
+                //s.AddFor(g => g.MatriculaPorDefecto).Caption("Defecto");
+            })
+
+            )
+</div>
+
+<div class="container-fluid pestañasContainer" id="pretramiteactual" style="display:none">
+
+    <h3>Trámite Actual</h3>
+
+    @(Html.DevExtreme().Form<Pretramite>()
+                                    .ColCount(12)
+                                    .ReadOnly(true)
+                                    .ElementAttr("class", "controls")
+                                    .ID("PretramiteActualLiquidacion")
+                                    .CustomizeItem("labelingles")
+                                    .Items(formItems =>
+                                    {
+
+                                        formItems.AddSimpleFor(m => m.NombreTramite).ColSpan(6)
+                                        .Label(l =>
+                                        {
+                                            l.Text("Tipo de trámite");
+                                            l.Location(FormLabelLocation.Left);
+
+                                        })
+                                        .Editor(e => e.TextBox());
+
+                                        formItems.AddSimpleFor(m => m.Fecha).ColSpan(6)
+                                        .Label(l =>
+                                        {
+                                            l.Text("Trámites a liquidar");
+                                            l.Location(FormLabelLocation.Left);
+                                        })
+                                        .Editor(e => e.TextBox());
+
+                                        formItems.AddSimpleFor(m => m.Persona.TipoDocumento).ColSpan(4)
+                                        .Label(l =>
+                                        {
+                                            l.Text("Identificación");
+                                            l.Location(FormLabelLocation.Left);
+                                        })
+                                        .Editor(e =>
+                                        e.TextBox());
+
+                                        formItems.AddSimpleFor(m => m.Persona.Documento).ColSpan(4)
+                                        .Label(l =>
+                                        {
+                                            l.Text("Placa/Identificador");
+                                            l.Location(FormLabelLocation.Left);
+                                        })
+                                        .Editor(e => e.TextBox());
+
+                                        //formItems.AddSimpleFor(m => m.NumeroMotor).ColSpan(4)
+                                        //.Label(l =>
+                                        //{
+                                        //    l.Text("Número del motor");
+                                        //    l.Location(FormLabelLocation.Left);
+                                        //})
+                                        //.Editor(e => e.TextBox());
+
+                                        //formItems.AddSimpleFor(m => m.Fecha).ColSpan(4)
+                                        //.Label(l =>
+                                        //{
+                                        //    l.Text("Fecha de creación");
+                                        //    l.Location(FormLabelLocation.Left);
+                                        //})
+                                        //.Editor(e =>
+                                        //e.DateBox().DateSerializationFormat("yyyy-MM-ddTHH:mm:ss")
+                                        //);
+
+                                        //formItems.AddSimpleFor(m => m.ClaseServicio.Valor1).ColSpan(4)
+                                        //.Label(l =>
+                                        //{
+                                        //    l.Text("Tipo de servicio");
+                                        //    l.Location(FormLabelLocation.Left);
+                                        //})
+                                        //.Editor(e =>
+                                        //e.TextBox()
+                                        //.ID("txbTipoServicio")
+                                        //);
+
+                                        //formItems.AddSimpleFor(m => m.Clase.Valor1).ColSpan(4)
+                                        //.Label(l =>
+                                        //{
+                                        //    l.Text("Clase de vehículo");
+                                        //    l.Location(FormLabelLocation.Left);
+
+                                        //})
+                                        //.Editor(e =>
+                                        //e.TextBox()
+                                        //.ID("txbClaseVehiculo")
+                                        //);
+
+                                    })
+
+    )
+
+</div>

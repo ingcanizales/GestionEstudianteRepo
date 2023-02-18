@@ -42,6 +42,7 @@ namespace GestionEstudiantes
             services.AddScoped<IEstudiantes, Estudiantes>();
             services.AddScoped<IMatricula, Matricula>();
             services.AddScoped<IGestionProfesores, GestionProfesores>();
+            services.AddScoped<ITramites, GestionTramites>();
 
             services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver()).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

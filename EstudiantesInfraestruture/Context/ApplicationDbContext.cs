@@ -23,6 +23,12 @@ namespace EstudiantesInfraestruture.Context
         public DbSet<ProfesorXMaterias> ProfesorXMaterias { get; set; }
         public DbSet<TipoDocumento> TipoDocumento { get; set; }
         public DbSet<Notas> Notas { get; set; }
+        public DbSet<Tramitacion> Tramitacion { get; set; }
+        public DbSet<Persona> Persona { get; set; }
+        public DbSet<EstadoTramite> EstadoTramite { get; set; }
+        public DbSet<Cargos> Cargos { get; set; }
+        public DbSet<TipoTramite> TipoTramite { get; set; }
+        public DbSet<Pretramite> Pretramite { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Estudiante>()

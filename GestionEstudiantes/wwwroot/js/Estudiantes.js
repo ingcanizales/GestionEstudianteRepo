@@ -8,6 +8,7 @@
 
 var isEdition = true;
 var EstudianteActual = null;
+var avanzar = true;
 
 
 //Guarda y valida mi formulario
@@ -219,6 +220,8 @@ async function EliminarEstudiante(e) {
             habilitarBtn = false;
         }
         $("#BtnCancelar").dxButton("instance").option("disabled", habilitarBtn);
+        $("#BtnMatricular").dxButton("instance").option("disabled", habilitarBtn);
+        $("#BtnEgresar").dxButton("instance").option("disabled", habilitarBtn);
     }
 
     function CancelarEstudiantes() {
@@ -283,12 +286,16 @@ async function EliminarEstudiante(e) {
 
 function MatricularEstudiantes() {
 
-    var gridCancelar = $("#TableEstudiantes").dxDataGrid("instance");
-    var idestudiantes = gridCancelar.getSelectedRowKeys();
+    
+   /* SalvarDocumentos();*/
+    var gridMatricular = $("#TableEstudiantes").dxDataGrid("instance");
+    var idestudiantes = gridMatricular.getSelectedRowKeys();
+
+
 
     if (idestudiantes.length > 0) {
         Swal.fire({
-            title: '¿Está seguro de Matricular el/los Estudiantes seleccionados?',
+            title: '¿Documentos Completos, Desea Continuar con el proceso de Matricula?',
             text: "Confirma los cambios",
             type: 'warning',
             showCancelButton: true,
@@ -337,7 +344,7 @@ function MatricularEstudiantes() {
         )
     }
     else {
-        Swal.fire('¡Atención!', 'Por favor, seleccione al menos un Estudiante a cancelar', 'info');
+        Swal.fire('¡Atención!', 'Por favor, seleccione al menos un Estudiante a Matricular', 'info');
     }
 }
 
@@ -397,6 +404,55 @@ function EgresarEstudiantes() {
         )
     }
     else {
-        Swal.fire('¡Atención!', 'Por favor, seleccione al menos un Estudiante a cancelar', 'info');
+        Swal.fire('¡Atención!', 'Por favor, seleccione al menos un Estudiante a Egresar', 'info');
     }
+}
+
+
+   
+
+async function SalvarDocumentos() {
+   
+    var form = $("#FormDocumentos").dxForm("instance").option("formData");
+    if (form.Carpeta == true &&
+    form.Foto == true &&
+    form.PazySalvo == true &&
+    form.TargetaIdentidad == true &&
+    form.FotocopiaCedula == true &&
+    form.CertificadoEstudio == true &&
+    form.RegistroCivil ==true)
+    {
+        $("#documentos_popup").dxPopup('instance').hide();
+        avanzar = true;
+
+        $("#FormDocumentos").dxForm("instance").resetValues();
+        Swal.fire(
+
+            'Atención',
+            'Documentos Completos',
+            'success'
+        )
+        
+    }
+
+    else {
+        avanzar = false;
+        $("#documentos_popup").dxPopup('instance').hide();
+        $("#FormDocumentos").dxForm("instance").resetValues();
+        Swal.fire(
+            'Atención',
+            'Faltan Documentos',
+            'info'
+        )
+
+        return;
+    }
+    MatricularEstudiantes();
+
+    
+}
+
+function PermitirMatricular() {
+    $("#documentos_popup").dxPopup('instance').show();
+    
 }

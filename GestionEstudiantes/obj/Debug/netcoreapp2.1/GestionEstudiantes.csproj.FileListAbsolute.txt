@@ -96,3 +96,7 @@ C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\Ges
 C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\GestionEstudiantes\obj\Debug\netcoreapp2.1\GestionEstudiantes.dll
 C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\GestionEstudiantes\obj\Debug\netcoreapp2.1\GestionEstudiantes.pdb
 C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\GestionEstudiantes\obj\Debug\netcoreapp2.1\GestionEstudiantes.genruntimeconfig.cache
+C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\GestionEstudiantes\obj\Debug\netcoreapp2.1\Razor\Pages\PartialViews\_Documentos.cshtml.g.cs
+C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\GestionEstudiantes\obj\Debug\netcoreapp2.1\Razor\Pages\Turno.cshtml.g.cs
+C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\GestionEstudiantes\obj\Debug\netcoreapp2.1\Razor\Pages\Liquidacion.cshtml.g.cs
+C:\Users\Usuario\Desktop\GestionEstudiantes-feature2.0\GestionEstudianteRepo\GestionEstudiantes\obj\Debug\netcoreapp2.1\Razor\Pages\PartialViews\_Liquidacion.cshtml.g.cs

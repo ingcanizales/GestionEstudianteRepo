@@ -1,0 +1,62 @@
+﻿
+@using EstudiantesCore.Dtos
+@using EstudiantesCore.Entidades
+@using DevExtreme.AspNet.Mvc
+@using EstudiantesCore.ViewModels
+
+<div class="detalle">
+
+    @(Html.DevExtreme().Form<EstudianteDTO>
+    ()
+    .ID("FormDocumentos")
+    .ColCount(12)
+    .Items(items =>
+    {
+
+        items.AddSimpleFor(g => g.FotocopiaCedula).ColSpan(4).Label(f => f.Location(FormLabelLocation.Top)
+        .Text("Fotocopia de la Cédula al 150%"))
+        .Editor(d => d.CheckBox());
+
+
+
+        items.AddSimpleFor(g => g.RegistroCivil).ColSpan(4).Label(f => f.Location(FormLabelLocation.Top)
+        .Text("Fotocopia del Registro Civil"))
+        .Editor(d => d.CheckBox());
+
+        items.AddSimpleFor(g => g.TargetaIdentidad).ColSpan(4).Label(f => f.Location(FormLabelLocation.Top)
+        .Text("Fotocopia de la Targeta de Identidad"))
+        .Editor(d => d.CheckBox());
+
+        items.AddSimpleFor(g => g.Foto).ColSpan(4).Label(f => f.Location(FormLabelLocation.Top)
+        .Text("Dos fotos Medio Cuerpo"))
+        .Editor(d => d.CheckBox());
+
+
+        items.AddSimpleFor(g => g.Carpeta).ColSpan(4).Label(f => f.Location(FormLabelLocation.Top)
+        .Text("Una Carpeta Azul"))
+        .Editor(d => d.CheckBox());
+
+        items.AddSimpleFor(g => g.PazySalvo).ColSpan(4).Label(f => f.Location(FormLabelLocation.Top)
+        .Text("Paz y Salvo"))
+        .Editor(d => d.CheckBox());
+
+        items.AddSimpleFor(g => g.CertificadoEstudio).ColSpan(4).Label(f => f.Location(FormLabelLocation.Top)
+        .Text("Certificado de Último Grado Cursado"))
+        .Editor(d => d.CheckBox());
+
+
+        items.AddEmpty().ColSpan(8);
+
+        items.AddEmpty().ColSpan(12);
+
+
+
+        items.AddButton().ColSpan(4).VerticalAlignment(VerticalAlignment.Bottom).ButtonOptions(s => s.Icon("save").ID("btnsalvar").Type(ButtonType.Default).OnClick("SalvarDocumentos").Text("Documentos Completos"));
+
+    })
+
+        )
+
+
+
+</div>

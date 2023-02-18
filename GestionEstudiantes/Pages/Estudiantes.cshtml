@@ -42,10 +42,16 @@
     { 5, 10, 15 }).ShowNavigationButtons(true).ShowPageSizeSelector(true))
     .SearchPanel(d => d.Visible(true))
     .DataSource(s => s.RemoteController().LoadUrl("/Estudiantes?handler=AllEstudiante").OnBeforeSend("MandarDataEstudiante").Key("Id"))
-    .NoDataText("No se encontraron acuerdos incumplidos según los filtros seleccionados")
+    .NoDataText("No se encontraron Estudiantes según los filtros seleccionados")
     .OnSelectionChanged("SeleccionFila")
     .Selection(s => s.Mode(SelectionMode.Multiple).AllowSelectAll(true).SelectAllMode(SelectAllMode.AllPages))
     .ElementAttr("class", "tablaSiot altoHeader posicionTabla")
+    .OnRowClick(@<text>
+            function (e)
+            {
+            Obtener_Grid_Pretramites_Liquidacion(e);
+            }
+        </text>)
     .Columns(s=>
     {
         s.AddFor(q => q.TipoDocumento.Id).Caption("Tipo de documento").Lookup(q => q.DataSource(f => f.RemoteController().LoadUrl("/Estudiantes?handler=TipoDocumento").Key("Id")).ValueExpr("Id").DisplayExpr("Nombre"));
@@ -66,7 +72,7 @@
 
     }).MasterDetail(d => d.AutoExpandAll(false).Enabled(true).Template(new TemplateName("DetalleEstudiante")))
     )
-            
+
             </div>
 
             <div style="display:none" id="divformulario">
@@ -74,7 +80,7 @@
             </div>
         </div>
     </div>
-    
+
 
 </div>
 
@@ -84,7 +90,7 @@
     </div>
 
     <div class="btn-group">
-        @(Html.DevExtreme().Button().Text("Matricular Estudiantes").Type(ButtonType.Default).Icon("add").ID("BtnMatricular").OnClick("MatricularEstudiantes").Type(ButtonType.Default))
+        @(Html.DevExtreme().Button().Text("Matricular Estudiantes").Type(ButtonType.Default).Icon("add").ID("BtnMatricular").OnClick("PermitirMatricular").Type(ButtonType.Default))
     </div>
 
     <div class="btn-group">
@@ -113,23 +119,24 @@
 
 
 
-@*@(Html.DevExtreme().Popup()
-                .ID("PopDetalleEstudiante")
+@(Html.DevExtreme().Popup()
+                .ID("documentos_popup")
                 .ShowTitle(true)
-                .Title("Datos del estudiante")
+                .Title("Documentos Requeridos para la Matricula")
                 .Visible(false)
                 .DeferRendering(false)
                 .DragEnabled(true)
-                .Width(1200)
-                .Height(800)
+                .Width(800)
+                .Height(600)
                 .CloseOnOutsideClick(true)
                 .ContentTemplate(
                 @<text>
                     <div>
-                        @(await Html.PartialAsync("/Pages/PartialViews/_formestudiante.cshtml"))
+                        @(await Html.PartialAsync("/Pages/PartialViews/_Documentos.cshtml"))
                     </div>
                 </text>)
-    )*@
+    )
+                    
 
 
 
@@ -141,4 +148,5 @@
 @section Scripts
     {
     <script src="~/js/Estudiantes.js"></script>
+    <script src="~/js/scrollPopUps.js"></script>
 }
