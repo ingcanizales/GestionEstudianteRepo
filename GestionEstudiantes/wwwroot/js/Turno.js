@@ -12,7 +12,7 @@ var selectedItem;
 function LoadDatosById(Identificacion) {
     var form = $('#formTurno').dxForm('instance');
     var selectBoxDoc = $("#selectBoxTipoDocumento").dxSelectBox("instance");
-    tipoDocumentoId = selectBoxDoc.option("value").Id;
+    tipoDocumentoId = selectBoxDoc.option("value")/*.Id*/;
     var documentoBox = $("#cedulaId").dxTextBox("instance");
     documento = documentoBox.option("value");
 
@@ -865,78 +865,90 @@ function Obtener_Grid_Pretramites_Liquidacion(e) {
     });
     valor = e;
     IdPretramite = e.data.Id;
-    token = $('input[name="__RequestVerificationToken"]').val();
+    $("#divLiquidacion").hide();
+    $("#pretramiteactual").show();
 
-    $.ajax({
-        url: '/Tramites/Liquidacion/Liquidacion?handler=ContribuyenteRegistrado',
-        method: "GET",
-        data: {
-            __RequestVerificationToken: gettoken(),
-            IdPretramite: IdPretramite
-        }
-    }).done(function (data) {
-        if (data !== null) {
-            if (data.isPersona) {
-                ObtenerDatosPretramite(IdPretramite);
-            }
-            else {
+    //token = $('input[name="__RequestVerificationToken"]').val();
 
-                ObtenerDatosPretramite(IdPretramite);
+    //$.ajax({
+    //    url: '/Tramites/Liquidacion/Liquidacion?handler=ContribuyenteRegistrado',
+    //    method: "GET",
+    //    data: {
+    //        __RequestVerificationToken: gettoken(),
+    //        IdPretramite: IdPretramite
+    //    }
+    //}).done(function (data) {
+    //    if (data !== null) {
+    //        if (data.isPersona) {
+    //            ObtenerDatosPretramite(IdPretramite);
+    //        }
+    //        else {
 
-                var popupContribuyente = $("#popup_RegistroContribuyentes").dxPopup("instance");
-                popupContribuyente.show();
-                $("#listapretamitesliquidacion").hide();
-                tDocumento = e.data.TipoDocumentoPropietarioPrincipal;
-                identificacionPersona = e.data.IdentificacionPropietarioPrincipal;
+    //            ObtenerDatosPretramite(IdPretramite);
 
-                $("#btnRegistrarContribuyente").show();
-                $("#btnlistartramitesContribuyente").show();
-                var form = $("#FormContribuyentes").dxForm("instance");
-                form.getEditor("TipoDocumento.Id").option("value", tDocumento.Id);
-                form.getEditor("Identificacion").option("value", identificacionPersona);
-                form.getEditor("PrimerNombre").option("value", data.primerNombre);
-                form.getEditor("SegundoNombre").option("value", data.segundoNombre);
-                form.getEditor("PrimerApellido").option("value", data.primerApellido);
-                form.getEditor("SegundoApellido").option("value", data.segundoApellido);
+    //    var popupContribuyente = $("#popup_RegistroContribuyentes").dxPopup("instance");
+    //    popupContribuyente.show();
+    //    $("#listapretamitesliquidacion").hide();
+    //    tDocumento = e.data.TipoDocumentoPropietarioPrincipal;
+    //    identificacionPersona = e.data.IdentificacionPropietarioPrincipal;
 
-                if (tDocumento.Valor1 === "NIT") {
-                    $('#FormContribuyentes').dxForm('instance').itemOption("RazonSocial", "visible", true);
-                    $('#FormContribuyentes').dxForm('instance').itemOption("RepresentanteLegal", "visible", true);
-                    $('#FormContribuyentes').dxForm('instance').itemOption("PrimerNombre", "visible", false);
-                    $('#FormContribuyentes').dxForm('instance').itemOption("SegundoNombre", "visible", false);
-                    $('#FormContribuyentes').dxForm('instance').itemOption("PrimerApellido", "visible", false);
-                    $('#FormContribuyentes').dxForm('instance').itemOption("SegundoApellido", "visible", false);
-                    $('#FormContribuyentes').dxForm('instance').itemOption("btnRepLegal", "visible", true);
+    //    $("#btnRegistrarContribuyente").show();
+    //    $("#btnlistartramitesContribuyente").show();
+    var form = $("#PretramiteActualLiquidacion").dxForm("instance");
+        /*form.getEditor("TipoDocumento.Id").option("value", tDocumento.Id);*/
+    form.getEditor("NombreTramite").option("value", e.data.NombreTramite);
+        form.getEditor("Fecha").option("value", e.data.Fecha);
+        form.getEditor("TipoDocumento").option("value", e.data.TipoDocumento.Nombre);
+    form.getEditor("Documento").option("value", e.data.Documento);
+        /*form.getEditor("SegundoApellido").option("value", data.segundoApellido);*/
 
-                }
-                else {
+    //    if (tDocumento.Valor1 === "NIT") {
+    //        $('#FormContribuyentes').dxForm('instance').itemOption("RazonSocial", "visible", true);
+    //        $('#FormContribuyentes').dxForm('instance').itemOption("RepresentanteLegal", "visible", true);
+    //        $('#FormContribuyentes').dxForm('instance').itemOption("PrimerNombre", "visible", false);
+    //        $('#FormContribuyentes').dxForm('instance').itemOption("SegundoNombre", "visible", false);
+    //        $('#FormContribuyentes').dxForm('instance').itemOption("PrimerApellido", "visible", false);
+    //        $('#FormContribuyentes').dxForm('instance').itemOption("SegundoApellido", "visible", false);
+    //        $('#FormContribuyentes').dxForm('instance').itemOption("btnRepLegal", "visible", true);
 
-                    $('#FormContribuyentes').dxForm('instance').itemOption("RazonSocial", "visible", false);
-                    $('#FormContribuyentes').dxForm('instance').itemOption("RepresentanteLegal", "visible", false);
-                    $('#FormContribuyentes').dxForm('instance').itemOption("PrimerNombre", "visible", true);
-                    $('#FormContribuyentes').dxForm('instance').itemOption("SegundoNombre", "visible", true);
-                    $('#FormContribuyentes').dxForm('instance').itemOption("PrimerApellido", "visible", true);
-                    $('#FormContribuyentes').dxForm('instance').itemOption("SegundoApellido", "visible", true);
-                    $('#FormContribuyentes').dxForm('instance').itemOption("btnRepLegal", "visible", false);
-                }
-                swal.close();
-            }
-        }
-        else {
-            Swal.fire(
-                'Error',
-                'Error al comunicarse con el servidor.',
-                'error'
-            );
-        }
-    }).fail(function () {
-        retorno = false;
-        Swal.fire(
-            'Error',
-            'Error al comunicarse con el servidor.',
-            'error'
-        );
-    });
+    //    }
+    //    else {
 
+    //        $('#FormContribuyentes').dxForm('instance').itemOption("RazonSocial", "visible", false);
+    //        $('#FormContribuyentes').dxForm('instance').itemOption("RepresentanteLegal", "visible", false);
+    //        $('#FormContribuyentes').dxForm('instance').itemOption("PrimerNombre", "visible", true);
+    //        $('#FormContribuyentes').dxForm('instance').itemOption("SegundoNombre", "visible", true);
+    //        $('#FormContribuyentes').dxForm('instance').itemOption("PrimerApellido", "visible", true);
+    //        $('#FormContribuyentes').dxForm('instance').itemOption("SegundoApellido", "visible", true);
+    //        $('#FormContribuyentes').dxForm('instance').itemOption("btnRepLegal", "visible", false);
+    //    }
+    //    swal.close();
+    //}
 
+    //    else {
+    //        Swal.fire(
+    //            'Error',
+    //            'Error al comunicarse con el servidor.',
+    //            'error'
+    //        );
+    //    }
+    //}).fail(function () {
+    //    retorno = false;
+    //    Swal.fire(
+    //        'Error',
+    //        'Error al comunicarse con el servidor.',
+    //        'error'
+    //    );
+    //});
 }
+    function labelingles(item) {
+        if (item.validationRules !== undefined) {
+            for (var i = 0; i < item.validationRules.length; i++) {
+                if (item.validationRules[i].type === "required") {
+                    item.validationRules[i].message = "El campo" + " \'" + item.label.text + "\' " + "es requerido";
+                }
+            }
+
+        }
+    }
+

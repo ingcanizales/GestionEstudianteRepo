@@ -1,0 +1,52 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@using EstudiantesCore.Dtos
+@using EstudiantesCore.Entidades
+@using DevExtreme.AspNet.Mvc
+
+<h3>Trámite Actual</h3>
+
+@(Html.DevExtreme().Form<Pretramite>()
+                                    .ColCount(12)
+                                    .ReadOnly(true)
+                                    .ElementAttr("class", "controls")
+                                    .ID("PretramiteActualLiquidacion")
+                                    .CustomizeItem("labelingles")
+                                    .Items(formItems =>
+                                    {
+
+                                        formItems.AddSimpleFor(m => m.NombreTramite).ColSpan(6)
+                                        .Label(l =>
+                                        {
+                                            l.Text("Nombre de trámite");
+                                            l.Location(FormLabelLocation.Left);
+
+                                        })
+                                        .Editor(e => e.TextBox());
+
+                                        formItems.AddSimpleFor(m => m.Fecha).ColSpan(6)
+                                        .Label(l =>
+                                        {
+                                            l.Text("Fecha");
+                                            l.Location(FormLabelLocation.Left);
+                                        });
+
+                                        formItems.AddSimpleFor(m => m.TipoDocumento).ColSpan(6)
+                                        .Label(l =>
+                                        {
+                                            l.Text("TipoDocumento");
+                                            l.Location(FormLabelLocation.Left);
+                                        });
+
+                                        formItems.AddSimpleFor(m => m.Documento).ColSpan(6)
+                                        .Label(l =>
+                                        {
+                                            l.Text("Documento");
+                                            l.Location(FormLabelLocation.Left);
+                                        });
+
+                                    })
+
+    )

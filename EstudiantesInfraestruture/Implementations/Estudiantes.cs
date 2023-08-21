@@ -421,5 +421,23 @@ namespace EstudiantesInfraestruture.Implementations
             return ListDetalleAnular;
         }
 
+        public void prueba()
+        {
+            var res2 = from f in _dbContext.Estudiante
+                       group f by f.Estado;
+            
+
+            foreach (var f in res2)
+            {
+                Console.WriteLine("{0} {1}",
+                f.Key.Id, f.Key.Nombre);
+                foreach (var f1 in f)
+                {
+                    Console.WriteLine(" {0} {1}",
+                    f1.Nombre, f1.Documento);
+                }
+            }
+        }
+
     }
 }

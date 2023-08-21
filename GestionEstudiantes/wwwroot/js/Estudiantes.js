@@ -456,3 +456,7 @@ function PermitirMatricular() {
     $("#documentos_popup").dxPopup('instance').show();
     
 }
+
+function Obtener_Grid_Pretramites_Liquidacion() {
+
+}

@@ -59,6 +59,8 @@ namespace EstudiantesCore.Interfaces
 
         List<Estudiante> EgresarVariosEstudiantes(List<int> idEstudiantes);
 
+        void prueba();
+
 
     }
         

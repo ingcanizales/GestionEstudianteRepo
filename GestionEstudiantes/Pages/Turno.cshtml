@@ -61,6 +61,7 @@ s.AddSimpleFor(m => m.Nombre)
 .Label(l => l.Text("Nombre"))
 .Editor(e => e
 .TextBox()
+.InputAttr(new { @style = "text-transform: uppercase" })
 .ID("Nombre")
 .Visible(true)
 .ShowClearButton(true)
@@ -131,8 +132,16 @@ s.AddButton()
 </div>
 
 <div style="display:none" id="divLiquidacion">
+    errrww
     @(await Html.PartialAsync("/Pages/PartialViews/_Liquidacion.cshtml"))
 </div>
+
+<div style="display:none" id="pretramiteactual">
+
+    @(await Html.PartialAsync("/Pages/PartialViews/_formpretramite.cshtml"))
+
+</div>
+
 
 @section Scripts
     {

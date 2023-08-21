@@ -122,7 +122,7 @@ namespace GestionEstudiantes.Pages
             try
 
             {
-
+                _gestionEstudiante.prueba();
                 List<Estudiante>Estudiante = _gestionEstudiante.GetAllEstudiantes();
                 return new JsonResult(DataSourceLoader.Load(Estudiante, options));
             }

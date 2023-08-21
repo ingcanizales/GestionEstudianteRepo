@@ -26,5 +26,7 @@ namespace EstudiantesCore.Entidades
 
         public int Estado { get; set; }
 
+        public TipoDocumento TipoDocumento { get; set; }
+
     }
 }

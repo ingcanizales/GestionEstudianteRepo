@@ -51,6 +51,7 @@ namespace EstudiantesInfraestruture.Implementations
         {
             pretramite.Fecha = DateTime.Now.Date;
             pretramite.Estado = EnumEstadoPretramite.Ventanilla;
+           
             //_dbContext.EstadoEstudiante.Find(estudiante.Estado.Id);
             //_dbContext.Personas.Find(pretramite.Persona.Id);
             _dbContext.Pretramite.Add(pretramite);
@@ -61,7 +62,7 @@ namespace EstudiantesInfraestruture.Implementations
         public List<Pretramite> GetPretramites()
         {
 
-            List<Pretramite> pretramites = _dbContext.Pretramite.ToList();
+            List<Pretramite> pretramites = _dbContext.Pretramite.Include(s=>s.Persona).Include(s=>s.TipoDocumento).ToList();
 
             return pretramites;
         }
